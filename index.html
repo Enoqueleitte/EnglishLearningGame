@@ -36,15 +36,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --glow-color: rgba(34, 211, 238, 0.7);
+            --glow-color: rgba(34, 211, 238, 0.75);
             --neon-cyan: #22d3ee;
             --neon-indigo: #6366f1;
             --neon-purple: #a855f7;
             --neon-emerald: #10b981;
             --mx: 50%;
             --my: 50%;
-            --tilt-x: 0deg;
-            --tilt-y: 0deg;
         }
         * {
             box-sizing: border-box;
@@ -52,7 +50,7 @@
         html, body {
             height: 100%;
             width: 100%;
-            background: #030612;
+            background: #030614;
             margin: 0;
             padding: 0;
         }
@@ -64,7 +62,54 @@
             font-family: 'Orbitron', sans-serif;
         }
 
-        /* Animações 3D e Holográficas */
+        /* Letras 3D Extrudadas e Cromadas Neon (Estilo da Arte) */
+        .text-3d-hero {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #f0f9ff;
+            background: linear-gradient(180deg, #ffffff 0%, #bae6fd 38%, #38bdf8 62%, #c084fc 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter:
+                drop-shadow(0 1px 0 #1e1b4b)
+                drop-shadow(0 2px 0 #1e1b4b)
+                drop-shadow(0 3px 0 #312e81)
+                drop-shadow(0 4px 0 #3b0764)
+                drop-shadow(0 5px 0 #090d16)
+                drop-shadow(0 8px 18px rgba(34, 211, 238, 0.55))
+                drop-shadow(0 0 28px rgba(168, 85, 247, 0.45));
+            transform: perspective(600px) rotateX(8deg);
+            transform-style: preserve-3d;
+        }
+
+        .text-3d-title {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            color: #e0f2fe;
+            text-shadow:
+                0 1px 0 #0e7490,
+                0 2px 0 #1e1b4b,
+                0 3px 0 #3b0764,
+                0 5px 12px rgba(34, 211, 238, 0.45),
+                0 0 20px rgba(168, 85, 247, 0.35);
+        }
+
+        .text-3d-neon-cyan {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            color: #67e8f9;
+            text-shadow:
+                0 1px 0 #0891b2,
+                0 2px 0 #164e63,
+                0 3px 0 #083344,
+                0 0 18px rgba(34, 211, 238, 0.75);
+        }
+
+        /* Animações 3D, Cubos e Balões Holográficos */
         @keyframes gradient-shift {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -75,8 +120,8 @@
             100% { transform: perspective(750px) rotateX(64deg) translateY(48px); }
         }
         @keyframes float-3d {
-            0%, 100% { transform: translateY(0px) rotateY(-5deg) rotateX(2deg); }
-            50% { transform: translateY(-9px) rotateY(5deg) rotateX(-2deg); }
+            0%, 100% { transform: translateY(0px) rotateY(-5deg); }
+            50% { transform: translateY(-8px) rotateY(5deg); }
         }
         @keyframes holo-scan {
             0% { transform: translateX(-140%) skewX(-24deg); }
@@ -87,10 +132,103 @@
             70% { box-shadow: 0 0 0 14px rgba(34, 211, 238, 0); }
             100% { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0); }
         }
-        @keyframes aura-spin {
-            0% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(180deg) scale(1.06); }
-            100% { transform: rotate(360deg) scale(1); }
+        @keyframes pulse-glow-cta {
+            0%, 100% { box-shadow: 0 0 24px rgba(34, 211, 238, 0.45), 0 0 16px rgba(168, 85, 247, 0.35), 0 8px 0 rgba(8, 51, 68, 0.95); }
+            50% { box-shadow: 0 0 38px rgba(34, 211, 238, 0.8), 0 0 26px rgba(168, 85, 247, 0.55), 0 8px 0 rgba(8, 51, 68, 0.95); }
+        }
+        @keyframes cube-spin {
+            0% { transform: rotateX(-18deg) rotateY(0deg) rotateZ(4deg); }
+            50% { transform: rotateX(18deg) rotateY(180deg) rotateZ(-4deg); }
+            100% { transform: rotateX(-18deg) rotateY(360deg) rotateZ(4deg); }
+        }
+        @keyframes bubble-float {
+            0%, 100% { transform: translateY(0px) rotate(-2deg); }
+            50% { transform: translateY(-9px) rotate(2deg); }
+        }
+
+        /* Cubos 3D Interativos Flutuantes (Estilo da Arte) */
+        .cyber-cube-scene {
+            width: 54px;
+            height: 54px;
+            perspective: 420px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .cyber-cube {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: cube-spin 11s linear infinite;
+            transition: transform 0.3s ease;
+        }
+        .cyber-cube-scene:hover .cyber-cube {
+            animation-play-state: paused;
+            transform: scale(1.16) rotateX(-15deg) rotateY(35deg);
+        }
+        .cyber-cube-face {
+            position: absolute;
+            width: 54px;
+            height: 54px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 1.35rem;
+            border-radius: 10px;
+            backdrop-filter: blur(8px);
+            border: 1.5px solid rgba(34, 211, 238, 0.85);
+            background: linear-gradient(135deg, rgba(14, 116, 144, 0.55), rgba(88, 28, 135, 0.58));
+            color: #67e8f9;
+            text-shadow: 0 0 12px #22d3ee, 0 2px 0 #1e1b4b;
+            box-shadow: inset 0 0 14px rgba(34, 211, 238, 0.45), 0 0 16px rgba(168, 85, 247, 0.35);
+        }
+        .cyber-cube-face.front  { transform: rotateY(0deg) translateZ(27px); }
+        .cyber-cube-face.back   { transform: rotateY(180deg) translateZ(27px); border-color: rgba(192, 132, 252, 0.85); color: #e9d5ff; }
+        .cyber-cube-face.right  { transform: rotateY(90deg) translateZ(27px); }
+        .cyber-cube-face.left   { transform: rotateY(-90deg) translateZ(27px); border-color: rgba(192, 132, 252, 0.85); color: #e9d5ff; }
+        .cyber-cube-face.top    { transform: rotateX(90deg) translateZ(27px); }
+        .cyber-cube-face.bottom { transform: rotateX(-90deg) translateZ(27px); }
+
+        /* Balões Holográficos Interativos ("Hello", "Hi") */
+        .holo-bubble {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.4rem 0.9rem;
+            border-radius: 14px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            color: #e0f2fe;
+            background: linear-gradient(135deg, rgba(34, 211, 238, 0.22), rgba(168, 85, 247, 0.26));
+            border: 1.5px solid rgba(103, 232, 249, 0.72);
+            box-shadow:
+                0 0 20px rgba(34, 211, 238, 0.38),
+                inset 0 0 12px rgba(192, 132, 252, 0.35);
+            text-shadow: 0 0 10px rgba(34, 211, 238, 0.85), 0 2px 0 #1e1b4b;
+            animation: bubble-float 4.2s ease-in-out infinite;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .holo-bubble:hover {
+            transform: scale(1.12) translateY(-3px);
+            box-shadow: 0 0 28px rgba(34, 211, 238, 0.75), inset 0 0 16px rgba(192, 132, 252, 0.55);
+        }
+        .holo-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -7px;
+            left: 16px;
+            width: 11px;
+            height: 11px;
+            background: rgba(15, 23, 42, 0.92);
+            border-right: 1.5px solid rgba(103, 232, 249, 0.72);
+            border-bottom: 1.5px solid rgba(103, 232, 249, 0.72);
+            transform: rotate(45deg);
         }
 
         #game-wrapper {
@@ -99,59 +237,94 @@
             overflow-y: auto;
             overflow-x: hidden;
             background:
-                radial-gradient(circle at var(--mx) var(--my), rgba(34, 211, 238, 0.16), transparent 34%),
-                radial-gradient(circle at 82% 18%, rgba(168, 85, 247, 0.14), transparent 40%),
-                linear-gradient(135deg, #030612 0%, #09132b 50%, #160a2c 100%);
-            background-size: 100% 100%, 100% 100%, 200% 200%;
+                radial-gradient(circle at var(--mx) var(--my), rgba(34, 211, 238, 0.18), transparent 36%),
+                radial-gradient(circle at 18% 25%, rgba(168, 85, 247, 0.22), transparent 42%),
+                radial-gradient(circle at 82% 70%, rgba(56, 189, 248, 0.18), transparent 45%),
+                linear-gradient(135deg, #030614 0%, #09132e 50%, #1a0b36 100%);
+            background-size: 100% 100%, 100% 100%, 100% 100%, 200% 200%;
             animation: gradient-shift 20s ease infinite;
         }
 
+        /* Grade Perspectiva Futurista no Fundo */
         #game-wrapper::before {
             content: '';
             position: fixed;
             left: -25%;
             right: -25%;
             bottom: -35%;
-            height: 76%;
+            height: 78%;
             background-image:
-                linear-gradient(to right, rgba(34, 211, 238, 0.15) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(168, 85, 247, 0.15) 1px, transparent 1px);
-            background-size: 48px 48px;
+                linear-gradient(to right, rgba(34, 211, 238, 0.18) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(168, 85, 247, 0.18) 1px, transparent 1px);
+            background-size: 46px 46px;
             animation: grid-drift 3.2s linear infinite;
             pointer-events: none;
             z-index: 0;
-            mask-image: linear-gradient(to top, rgba(0,0,0,0.9), transparent 85%);
-            -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.9), transparent 85%);
+            mask-image: linear-gradient(to top, rgba(0,0,0,0.92), transparent 85%);
+            -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.92), transparent 85%);
+        }
+
+        /* Moldura HUD Cibernética nas Bordas da Tela */
+        .cyber-hud-frame {
+            position: fixed;
+            inset: 10px;
+            border: 1px solid rgba(34, 211, 238, 0.24);
+            border-radius: 22px;
+            pointer-events: none;
+            z-index: 2;
+            box-shadow: inset 0 0 28px rgba(34, 211, 238, 0.08);
+        }
+        .cyber-hud-frame::before,
+        .cyber-hud-frame::after {
+            content: '';
+            position: absolute;
+            width: 34px;
+            height: 34px;
+            border-color: #22d3ee;
+            border-style: solid;
+            filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.8));
+        }
+        .cyber-hud-frame::before {
+            top: -1px;
+            left: -1px;
+            border-width: 3px 0 0 3px;
+            border-top-left-radius: 18px;
+        }
+        .cyber-hud-frame::after {
+            bottom: -1px;
+            right: -1px;
+            border-width: 0 3px 3px 0;
+            border-bottom-right-radius: 18px;
+            border-color: #c084fc;
+            filter: drop-shadow(0 0 8px rgba(192, 132, 252, 0.8));
         }
 
         .ambient-orb {
             position: fixed;
             border-radius: 9999px;
-            filter: blur(70px);
+            filter: blur(75px);
             pointer-events: none;
             z-index: 0;
-            opacity: 0.35;
+            opacity: 0.4;
         }
         .ambient-orb-1 {
-            width: 320px;
-            height: 320px;
+            width: 340px;
+            height: 340px;
             top: -80px;
             left: -60px;
             background: #06b6d4;
-            animation: aura-spin 22s linear infinite;
         }
         .ambient-orb-2 {
-            width: 360px;
-            height: 360px;
+            width: 380px;
+            height: 380px;
             bottom: 8%;
             right: -90px;
-            background: #7c3aed;
-            animation: aura-spin 28s linear infinite reverse;
+            background: #9333ea;
         }
 
         .screen {
             position: relative;
-            z-index: 1;
+            z-index: 3;
             width: 100%;
             max-width: 980px;
             min-height: 100%;
@@ -183,19 +356,21 @@
             }
         }
 
+        /* Painel HUD Holográfico com Cantos de Circuito */
         .content-panel {
             position: relative;
             overflow: hidden;
-            background: linear-gradient(155deg, rgba(13, 20, 40, 0.82), rgba(6, 10, 24, 0.92));
+            background: linear-gradient(155deg, rgba(13, 21, 46, 0.88), rgba(6, 10, 26, 0.96));
             backdrop-filter: blur(22px);
             -webkit-backdrop-filter: blur(22px);
-            border: 1px solid rgba(34, 211, 238, 0.28);
+            border: 1.5px solid rgba(34, 211, 238, 0.38);
             box-shadow:
-                0 25px 60px rgba(0, 0, 0, 0.7),
-                0 0 36px rgba(34, 211, 238, 0.14),
-                inset 0 1px 0 rgba(255, 255, 255, 0.14);
+                0 25px 60px rgba(0, 0, 0, 0.78),
+                0 0 38px rgba(34, 211, 238, 0.18),
+                0 0 24px rgba(168, 85, 247, 0.14),
+                inset 0 1px 0 rgba(255, 255, 255, 0.16);
             width: 100%;
-            border-radius: 1.5rem;
+            border-radius: 1.75rem;
             padding: 2rem;
             margin: auto 0;
             flex-shrink: 0;
@@ -210,8 +385,8 @@
             left: 0;
             width: 45%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.07), transparent);
-            animation: holo-scan 7.5s ease-in-out infinite;
+            background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.08), rgba(168, 85, 247, 0.06), transparent);
+            animation: holo-scan 7s ease-in-out infinite;
             pointer-events: none;
         }
 
@@ -230,54 +405,75 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 0.75rem 0;
+            padding: 0.5rem 0;
         }
 
         .logo-3d {
             animation: float-3d 4.5s ease-in-out infinite;
-            filter: drop-shadow(0 0 22px var(--glow-color));
+            filter: drop-shadow(0 0 24px rgba(34, 211, 238, 0.65)) drop-shadow(0 0 14px rgba(168, 85, 247, 0.45));
             transform-style: preserve-3d;
+        }
+
+        .cyber-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(90deg, rgba(34, 211, 238, 0.15), rgba(168, 85, 247, 0.18));
+            border: 1px solid rgba(34, 211, 238, 0.48);
+            color: #67e8f9;
+            padding: 0.38rem 1.05rem;
+            border-radius: 9999px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            box-shadow: 0 0 18px rgba(34, 211, 238, 0.22);
+        }
+
+        .btn-cta-glow {
+            animation: pulse-glow-cta 2.5s infinite;
         }
 
         @media (max-width: 768px) {
             .content-panel {
                 padding: 1.25rem;
-                border-radius: 1.15rem;
+                border-radius: 1.25rem;
             }
             .flex.flex-col.md\:flex-row.gap-6 { flex-direction: column; }
+            .cyber-hud-frame { inset: 6px; border-radius: 16px; }
         }
 
-        /* Botões Táteis em 3D */
+        /* Botões Táteis em 3D com Letras 3D */
         .btn {
             position: relative;
             transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.24s ease, filter 0.24s ease, border-color 0.24s ease;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.55);
-            font-weight: 600;
+            border: 1.5px solid rgba(103, 232, 249, 0.32);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.65);
+            font-weight: 700;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
             transform-style: preserve-3d;
-            box-shadow: 0 6px 0 rgba(2, 6, 23, 0.8), 0 12px 24px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 6px 0 rgba(2, 6, 23, 0.88), 0 12px 24px rgba(0, 0, 0, 0.48);
             cursor: pointer;
         }
         .btn:hover:not(:disabled) {
-            transform: translate3d(0, -4px, 20px) rotateX(5deg) scale(1.025);
-            box-shadow: 0 10px 0 rgba(2, 6, 23, 0.85), 0 18px 30px rgba(34, 211, 238, 0.28);
-            border-color: rgba(103, 232, 249, 0.6);
-            filter: brightness(1.08);
+            transform: translate3d(0, -4px, 20px) rotateX(6deg) scale(1.025);
+            box-shadow: 0 10px 0 rgba(2, 6, 23, 0.9), 0 18px 32px rgba(34, 211, 238, 0.35), 0 0 20px rgba(168, 85, 247, 0.28);
+            border-color: rgba(103, 232, 249, 0.8);
+            filter: brightness(1.09);
         }
         .btn:active:not(:disabled) {
             transform: translate3d(0, 3px, 0) scale(0.98);
-            box-shadow: 0 2px 0 rgba(2, 6, 23, 0.85), 0 4px 10px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 2px 0 rgba(2, 6, 23, 0.88), 0 4px 10px rgba(0, 0, 0, 0.45);
         }
         .btn:disabled { opacity: 0.45; cursor: not-allowed; }
 
         .btn-neutral {
-            background: rgba(30, 41, 59, 0.88);
+            background: rgba(24, 34, 58, 0.92);
             color: #f1f5f9;
-            border-color: rgba(148, 163, 184, 0.28);
+            border-color: rgba(103, 232, 249, 0.3);
         }
 
         .btn-speak-inline {
@@ -287,7 +483,7 @@
         /* Modais */
         .modal-overlay {
             position: fixed; inset: 0;
-            background: rgba(2, 6, 23, 0.8);
+            background: rgba(2, 6, 23, 0.82);
             backdrop-filter: blur(10px);
             display: flex; justify-content: center; align-items: center;
             z-index: 10000; opacity: 0;
@@ -299,8 +495,8 @@
         .modal-content {
             background: linear-gradient(160deg, rgba(15, 23, 42, 0.96), rgba(6, 10, 24, 0.99));
             padding: 2rem; border-radius: 1.35rem;
-            border: 1px solid rgba(34, 211, 238, 0.38);
-            box-shadow: 0 28px 65px rgba(0, 0, 0, 0.8), 0 0 30px rgba(34, 211, 238, 0.16);
+            border: 1.5px solid rgba(34, 211, 238, 0.42);
+            box-shadow: 0 28px 65px rgba(0, 0, 0, 0.82), 0 0 32px rgba(34, 211, 238, 0.2);
             max-width: 500px; width: 90%;
             transform: scale(0.9) rotateX(10deg);
             transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
@@ -327,10 +523,10 @@
 
         .main-footer {
             position: relative;
-            z-index: 1;
-            background: rgba(6, 10, 24, 0.72);
+            z-index: 3;
+            background: rgba(6, 10, 24, 0.78);
             backdrop-filter: blur(12px);
-            border-top: 1px solid rgba(34, 211, 238, 0.22);
+            border-top: 1px solid rgba(34, 211, 238, 0.26);
             flex-shrink: 0;
             margin-top: auto;
         }
@@ -340,10 +536,10 @@
         .game-list-item {
             display: flex; justify-content: space-between; align-items: center; gap: 0.5rem;
             padding: 7px 11px;
-            border-radius: 9px; background-color: rgba(30, 41, 59, 0.68);
-            border: 1px solid rgba(148, 163, 184, 0.18); margin-bottom: 6px;
+            border-radius: 9px; background-color: rgba(30, 41, 59, 0.72);
+            border: 1px solid rgba(103, 232, 249, 0.2); margin-bottom: 6px;
         }
-        .game-list-item .word { font-weight: 600; color: #67e8f9; }
+        .game-list-item .word { font-weight: 700; color: #67e8f9; }
         .game-list-item .translation { color: #cbd5e1; font-style: italic; font-size: 0.9rem; }
         .game-list-item.found { text-decoration: line-through; background-color: rgba(16, 185, 129, 0.2); border-color: rgba(16, 185, 129, 0.45); }
         .game-list-item.found .word, .game-list-item.found .translation { color: #6ee7b7; }
@@ -359,12 +555,12 @@
 
         /* Caça-Palavras */
         .wordsearch-grid { display: grid; gap: 3px; user-select: none; width: 100%; max-width: 420px; margin: 0 auto; }
-        .wordsearch-cell { width: 100%; aspect-ratio: 1/1; display: flex; justify-content: center; align-items: center; font-size: clamp(0.7rem, 2.5vw, 1rem); font-weight: bold; text-transform: uppercase; background-color: rgba(30, 41, 59, 0.85); border: 1px solid rgba(148, 163, 184, 0.22); border-radius: 6px; cursor: pointer; transition: all 0.2s ease; }
+        .wordsearch-cell { width: 100%; aspect-ratio: 1/1; display: flex; justify-content: center; align-items: center; font-size: clamp(0.7rem, 2.5vw, 1rem); font-weight: bold; text-transform: uppercase; background-color: rgba(30, 41, 59, 0.85); border: 1px solid rgba(103, 232, 249, 0.25); border-radius: 6px; cursor: pointer; transition: all 0.2s ease; }
         .wordsearch-cell.found { background-color: #10b981; color: white; box-shadow: 0 0 12px rgba(16, 185, 129, 0.45); }
         .wordsearch-cell.selecting { background-color: #06b6d4; color: #050811; transform: translateZ(10px) scale(1.1); box-shadow: 0 0 14px #22d3ee; }
 
         /* Forca */
-        #hangman-word-display { letter-spacing: 0.45em; text-shadow: 0 0 18px rgba(34, 211, 238, 0.45); }
+        #hangman-word-display { letter-spacing: 0.45em; text-shadow: 0 2px 0 #1e1b4b, 0 0 20px rgba(34, 211, 238, 0.55); }
         .keyboard-btn { min-width: 36px; }
 
         /* Jogo da Memória 3D */
@@ -404,15 +600,15 @@
             text-align: center;
             padding: 6px;
             font-size: clamp(0.65rem, 2vw, 1.05rem);
-            border: 1px solid rgba(34, 211, 238, 0.38);
-            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.48);
+            border: 1.5px solid rgba(34, 211, 238, 0.45);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
         }
         .memory-card-front {
-            background: linear-gradient(135deg, #1e1b4b, #0f172a);
+            background: linear-gradient(135deg, #2e1065, #0f172a);
             color: #22d3ee;
         }
         .memory-card-back {
-            background: linear-gradient(135deg, #0e7490, #1e293b);
+            background: linear-gradient(135deg, #0e7490, #312e81);
             transform: rotateY(180deg);
             color: white;
         }
@@ -453,12 +649,22 @@
             border-radius: 1.25rem;
             box-shadow: 0 18px 36px rgba(0, 0, 0, 0.55);
             padding: 1.25rem; text-align: center;
-            border: 1px solid rgba(34, 211, 238, 0.42);
+            border: 1.5px solid rgba(34, 211, 238, 0.45);
         }
-        .flashcard-front { background: linear-gradient(145deg, #0f172a, #1e293b); }
-        .flashcard-back { background: linear-gradient(145deg, #1e1b4b, #312e81); color: #e0f2fe; transform: rotateY(180deg); }
-        .word-text { font-size: 2.25rem; font-weight: 800; color: #22d3ee; text-shadow: 0 0 14px rgba(34, 211, 238, 0.45); }
-        .translation-text { font-size: 1.8rem; font-weight: 700; }
+        .flashcard-front { background: linear-gradient(145deg, #0f172a, #1e1b4b); }
+        .flashcard-back { background: linear-gradient(145deg, #3b0764, #1e1b4b); color: #e0f2fe; transform: rotateY(180deg); }
+        .word-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.1rem;
+            font-weight: 900;
+            color: #67e8f9;
+            text-shadow: 0 2px 0 #1e1b4b, 0 4px 0 #083344, 0 0 16px rgba(34, 211, 238, 0.55);
+        }
+        .translation-text {
+            font-size: 1.8rem;
+            font-weight: 800;
+            text-shadow: 0 2px 0 #1e1b4b, 0 0 14px rgba(192, 132, 252, 0.45);
+        }
 
         /* Palavras Arrastáveis no Modo Frases */
         #drop-zone, #drag-zone {
@@ -468,13 +674,13 @@
         }
         #drop-zone {
             background: rgba(2, 6, 23, 0.6);
-            border: 2px dashed rgba(34, 211, 238, 0.48);
+            border: 2px dashed rgba(34, 211, 238, 0.5);
         }
         .draggable-word {
             padding: 0.55rem 1rem;
-            background: linear-gradient(135deg, #0891b2, #4f46e5);
+            background: linear-gradient(135deg, #0891b2, #6d28d9);
             color: white;
-            border: 1px solid rgba(255, 255, 255, 0.24);
+            border: 1px solid rgba(103, 232, 249, 0.35);
             border-radius: 0.65rem;
             cursor: grab;
             margin: 0.25rem;
@@ -482,6 +688,7 @@
             box-shadow: 0 5px 0 rgba(15, 23, 42, 0.85), 0 8px 16px rgba(0, 0, 0, 0.35);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             user-select: none;
+            font-weight: 700;
         }
         .draggable-word:hover {
             transform: translateY(-2px) scale(1.04);
@@ -492,8 +699,9 @@
         .scramble-btn {
             width: 46px;
             height: 46px;
-            font-size: 1.45rem;
-            font-weight: 800;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 900;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -511,14 +719,14 @@
         }
         .scramble-btn.slot {
             background-color: rgba(15, 23, 42, 0.72);
-            border: 2px dashed rgba(34, 211, 238, 0.45);
+            border: 2px dashed rgba(34, 211, 238, 0.5);
             color: white;
         }
         .scramble-btn.letter {
             background: linear-gradient(135deg, #84cc16, #10b981);
             color: #050811;
-            box-shadow: 0 5px 0 rgba(6, 78, 59, 0.85), 0 8px 15px rgba(16, 185, 129, 0.25);
-            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 5px 0 rgba(6, 78, 59, 0.85), 0 8px 15px rgba(16, 185, 129, 0.28);
+            border: 1px solid rgba(255, 255, 255, 0.28);
         }
         .scramble-btn.letter:hover {
             transform: translateY(-3px) scale(1.06);
@@ -550,73 +758,138 @@
     <div id="game-wrapper">
         <div class="ambient-orb ambient-orb-1"></div>
         <div class="ambient-orb ambient-orb-2"></div>
+        <div class="cyber-hud-frame"></div>
 
         <!-- Tela Inicial -->
         <div id="start-screen" class="screen">
             <div class="start-screen-scrollable">
-                <div class="text-center mb-5 relative flex-shrink-0 w-full flex justify-center mt-2">
-                    <button id="music-btn" class="absolute top-0 left-0 btn bg-slate-800/85 hover:bg-slate-700 rounded-full p-2.5 text-cyan-300 z-10" title="Música de fundo">
-                        <svg id="music-on-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256" class="hidden"><path d="M240,128a80.12,80.12,0,0,1-42.38,71.47,8,8,0,0,1-8.52-13c24.8-15.5,42.9-49.33,42.9-88.47a80,80,0,0,0-160,0c0,39.14,18.1,72.97,42.9,88.47a8,8,0,0,1-8.52,13A80.12,80.12,0,0,1,16,128a80,80,0,0,1,160.7,52.41a8,8,0,1,1-8.4,13.18A64.08,64.08,0,0,0,32,128a64,64,0,0,0,128,0,64.08,64.08,0,0,0-120.3-32.41,8,8,0,1,1-8.4-13.18A80,80,0,0,1,240,128Z"></path></svg>
-                        <svg id="music-off-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><path d="M245.48,133.47a8,8,0,0,1-8.52,13C212.16,130.93,184.31,112,144,112a8,8,0,0,1,0-16c44.87,0,77.41,22.21,102.9,40.65A8,8,0,0,1,245.48,133.47ZM192,112a8,8,0,0,0,0,16c21.3,0,38,7.5,45.48,13.69a8,8,0,0,0,11-11.38C238,121.2,216,112,192,112Zm-83.31-41L70.05,32.35A8,8,0,0,0,58.74,37.89l50.7,50.7a8,8,0,0,0,11.31,0l.25-.25L213.11,230.11a8,8,0,0,0,11.31-11.31ZM144,32a8,8,0,0,1,8,8v.69l-16,16V40a8,8,0,0,1-8-8,80.13,80.13,0,0,0-71.3-43.3A8,8,0,0,0,32,0H31.9a8,8,0,0,0-7.38,5.06,78.5,78.5,0,0,0-1.5,13.67A80,80,0,0,0,108.69,71Z"></path></svg>
-                    </button>
-                    <button id="help-btn" class="absolute top-0 right-0 btn bg-slate-800/85 hover:bg-slate-700 rounded-full p-2.5 text-cyan-300 z-10" title="Ajuda">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24a104,104,0,1,0,104,104A104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm-8-40a8,8,0,0,1-8-8V152a8,8,0,0,1,16,0v16A8,8,0,0,1,120,176Zm20-80a12,12,0,1,1-12-12A12,12,0,0,1,140,96Z"></path></svg>
-                    </button>
-                    <img src="https://i.imgur.com/PbOYu8p.png" alt="Logotipo do Jogo" class="logo-3d w-32 md:w-44 h-auto">
+                <!-- Controles Superiores -->
+                <div class="w-full max-w-4xl flex justify-between items-center mb-3 px-1">
+                    <div class="flex items-center gap-2">
+                        <span class="hidden sm:inline-flex items-center gap-1.5 text-xs font-cyber text-cyan-300/80 bg-slate-900/75 border border-cyan-500/30 px-3 py-1.5 rounded-full">
+                            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+                            HUD 3D ATIVO
+                        </span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button id="music-btn" class="btn bg-slate-900/85 hover:bg-slate-800 border border-cyan-500/35 text-cyan-300 p-2.5 rounded-xl" title="Ativar/Desativar Música">
+                            <i id="music-on-icon" class="ph-fill ph-speaker-high text-xl hidden"></i>
+                            <i id="music-off-icon" class="ph-fill ph-speaker-slash text-xl"></i>
+                        </button>
+                        <button id="help-btn" class="btn bg-slate-900/85 hover:bg-slate-800 border border-purple-500/40 text-purple-300 px-3.5 py-2.5 rounded-xl text-sm" title="Como Jogar e Ajuda">
+                            <i class="ph-bold ph-question text-xl"></i>
+                            <span class="hidden sm:inline">Ajuda</span>
+                        </button>
+                    </div>
                 </div>
 
-                <h1 class="font-cyber text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-400 to-purple-400 text-center mb-1 tracking-wide">
+                <!-- Cena Central 3D: Balões Holográficos + Cubos 3D + Logo -->
+                <div class="flex items-center justify-center gap-4 sm:gap-8 mb-3 mt-1">
+                    <div class="flex flex-col items-end gap-2">
+                        <button type="button" class="holo-bubble" data-speak-word="Hello" title="Clique para ouvir: Hello">
+                            <i class="ph-fill ph-speaker-high text-cyan-300 text-xs"></i>
+                            <span>Hello</span>
+                        </button>
+                        <div class="cyber-cube-scene hidden sm:block" data-speak-word="English" title="Cubo 3D Interativo">
+                            <div class="cyber-cube">
+                                <div class="cyber-cube-face front">E</div>
+                                <div class="cyber-cube-face back">G</div>
+                                <div class="cyber-cube-face right">L</div>
+                                <div class="cyber-cube-face left">M</div>
+                                <div class="cyber-cube-face top">A</div>
+                                <div class="cyber-cube-face bottom">3D</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col items-center">
+                        <img src="https://i.imgur.com/PbOYu8p.png" alt="Logotipo do Jogo" class="logo-3d w-24 md:w-32 h-auto">
+                    </div>
+
+                    <div class="flex flex-col items-start gap-2">
+                        <button type="button" class="holo-bubble" style="animation-delay: 1.2s;" data-speak-word="Hi" title="Clique para ouvir: Hi">
+                            <i class="ph-fill ph-speaker-high text-purple-300 text-xs"></i>
+                            <span>Hi</span>
+                        </button>
+                        <div class="cyber-cube-scene hidden sm:block" data-speak-word="Learn" title="Cubo 3D Interativo">
+                            <div class="cyber-cube" style="animation-direction: reverse;">
+                                <div class="cyber-cube-face front">A</div>
+                                <div class="cyber-cube-face back">L</div>
+                                <div class="cyber-cube-face right">G</div>
+                                <div class="cyber-cube-face left">E</div>
+                                <div class="cyber-cube-face top">M</div>
+                                <div class="cyber-cube-face bottom">PRO</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-center mb-3">
+                    <div class="cyber-badge">
+                        <i class="ph-fill ph-sparkle text-base text-cyan-300"></i>
+                        <span>Plataforma Interativa 3D • Pronúncia Nativa</span>
+                    </div>
+                </div>
+
+                <!-- Título Principal em Letras 3D Extrudadas -->
+                <h1 class="text-3d-hero text-3xl sm:text-4xl md:text-5xl text-center mb-2 leading-tight px-2">
                     ENGLISH LEARNING GAME
                 </h1>
-                <p class="text-cyan-200/80 text-xs md:text-sm font-medium tracking-widest uppercase text-center mb-5">
-                    Domine o Inglês com Pronúncia Nativa e Desafios Interativos
+                <p class="text-gray-300 text-xs md:text-sm font-medium text-center max-w-lg mx-auto mb-5 leading-relaxed">
+                    Domine o inglês jogando com <strong class="text-cyan-300">pronúncia nativa</strong>, desafios interativos em 3D e ranking semanal.
                 </p>
 
                 <!-- Input de Nickname e Botão de Ranking -->
-                <div class="mb-6 w-full max-w-xs mx-auto flex flex-col gap-2">
+                <div class="mb-5 w-full max-w-sm mx-auto flex flex-col gap-2.5">
                     <div id="nickname-input-group" class="flex flex-col gap-2">
-                        <div class="flex gap-2">
-                            <input type="text" id="player-nickname" placeholder="Digite seu Nickname" class="w-full bg-slate-900/85 text-white text-center text-base p-3 rounded-xl border border-cyan-500/40 focus:border-cyan-300 focus:outline-none transition-colors shadow-inner" maxlength="15">
-                            <button id="save-nickname-btn" class="btn bg-cyan-500 hover:bg-cyan-400 rounded-xl px-4 font-bold text-slate-950" title="Salvar Nickname"><i class="ph-bold ph-check text-xl"></i></button>
+                        <div class="flex gap-2 bg-slate-900/85 border border-cyan-500/35 p-2 rounded-2xl shadow-inner">
+                            <input type="text" id="player-nickname" placeholder="Digite seu Nickname" class="w-full bg-transparent text-white text-center text-base px-3 py-2 focus:outline-none" maxlength="15">
+                            <button id="save-nickname-btn" class="btn bg-gradient-to-r from-cyan-400 via-sky-400 to-purple-500 hover:brightness-110 rounded-xl px-4 font-bold text-slate-950" title="Salvar Nickname"><i class="ph-bold ph-check text-xl"></i></button>
                         </div>
                     </div>
-                    <div id="nickname-display-group" class="hidden bg-slate-900/85 border border-cyan-500/40 rounded-xl p-3 flex justify-between items-center">
-                        <span class="text-white font-semibold flex items-center gap-2"><i class="ph-fill ph-user text-cyan-400"></i> Olá, <span id="display-nickname-text" class="text-cyan-300"></span></span>
-                        <button id="edit-nickname-btn" class="text-gray-400 hover:text-cyan-300 transition-colors" title="Editar Nickname"><i class="ph-bold ph-pencil-simple text-lg"></i></button>
+                    <div id="nickname-display-group" class="hidden bg-slate-900/85 border border-cyan-500/35 rounded-2xl p-3.5 flex justify-between items-center shadow-lg">
+                        <span class="text-white font-semibold flex items-center gap-2"><i class="ph-fill ph-user-circle text-cyan-400 text-xl"></i> Olá, <span id="display-nickname-text" class="text-cyan-300 font-bold"></span></span>
+                        <button id="edit-nickname-btn" class="text-gray-400 hover:text-cyan-300 transition-colors p-1" title="Editar Nickname"><i class="ph-bold ph-pencil-simple text-lg"></i></button>
                     </div>
 
-                    <button id="view-ranking-btn" class="btn bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 text-slate-950 mt-1">
-                        <i class="ph-bold ph-trophy text-xl"></i> Ver Ranking Semanal
+                    <button id="view-ranking-btn" class="btn btn-cta-glow bg-gradient-to-r from-cyan-400 via-sky-400 to-purple-500 font-cyber font-extrabold py-3 px-5 rounded-2xl flex items-center justify-center gap-2 text-slate-950 text-sm tracking-wide mt-1">
+                        <i class="ph-bold ph-trophy text-xl"></i> VER RANKING SEMANAL
                     </button>
                 </div>
 
                 <div class="start-screen-content-wrapper">
                     <div class="content-panel" id="main-start-panel">
                         <div id="difficulty-selection">
-                            <h3 class="font-cyber text-center font-bold mb-5 text-lg md:text-xl text-cyan-200 tracking-wider uppercase">Selecione o Nível</h3>
+                            <div class="flex justify-center mb-2">
+                                <span class="text-xs font-semibold uppercase tracking-widest text-cyan-300/80 flex items-center gap-1.5">
+                                    <i class="ph-bold ph-sliders-horizontal"></i> Passo 1 de 2
+                                </span>
+                            </div>
+                            <h3 class="text-3d-title text-center mb-5 text-lg md:text-2xl uppercase">Selecione o Nível</h3>
                             <div class="flex flex-col sm:flex-row justify-center gap-4">
                                 <button class="btn difficulty-btn text-white font-bold bg-gradient-to-br from-emerald-600 to-green-700 hover:from-emerald-500 hover:to-green-600" data-difficulty="easy" data-label="Iniciante" data-icon="ph-star">
                                     <i class="ph-fill ph-star text-3xl text-emerald-200"></i>
-                                    <span>Iniciante</span>
+                                    <span class="font-cyber tracking-wide">Iniciante</span>
                                 </button>
                                 <button class="btn difficulty-btn text-slate-950 font-bold bg-gradient-to-br from-amber-400 to-yellow-500 hover:from-amber-300 hover:to-yellow-400" data-difficulty="medium" data-label="Intermediário" data-icon="ph-rocket">
                                     <i class="ph-fill ph-rocket text-3xl text-slate-900"></i>
-                                    <span>Intermediário</span>
+                                    <span class="font-cyber tracking-wide">Intermediário</span>
                                 </button>
-                                <button class="btn difficulty-btn text-white font-bold bg-gradient-to-br from-rose-600 to-purple-700 hover:from-rose-500 hover:to-purple-600" data-difficulty="hard" data-label="Avançado" data-icon="ph-fire">
-                                    <i class="ph-fill ph-fire text-3xl text-rose-200"></i>
-                                    <span>Avançado</span>
+                                <button class="btn difficulty-btn text-white font-bold bg-gradient-to-br from-purple-600 to-fuchsia-700 hover:from-purple-500 hover:to-fuchsia-600" data-difficulty="hard" data-label="Avançado" data-icon="ph-fire">
+                                    <i class="ph-fill ph-fire text-3xl text-purple-200"></i>
+                                    <span class="font-cyber tracking-wide">Avançado</span>
                                 </button>
                             </div>
                         </div>
 
                         <!-- Menu de Jogos -->
                         <div id="game-mode-selection-container" class="hidden w-full">
-                            <div class="flex justify-between items-center mb-4">
-                                <h3 class="font-cyber font-bold text-base md:text-lg text-cyan-200 uppercase tracking-wider">Modo de Jogo</h3>
-                                <div id="change-level-quick-btn" class="bg-slate-800/85 px-3.5 py-1.5 rounded-full flex items-center gap-2 text-sm font-medium border border-cyan-500/35 cursor-pointer hover:bg-slate-700 transition-colors" title="Clique para alterar o nível">
+                            <div class="flex flex-wrap justify-between items-center gap-2 mb-5">
+                                <h3 class="text-3d-title text-base md:text-xl uppercase">Escolha o Modo</h3>
+                                <div id="change-level-quick-btn" class="bg-slate-900/90 px-4 py-2 rounded-full flex items-center gap-2 text-sm font-semibold border border-cyan-500/45 cursor-pointer hover:border-cyan-300 transition-colors shadow-md" title="Clique para alterar o nível">
                                     <i id="level-icon-display" class="ph-fill ph-star text-cyan-400"></i>
                                     <span id="level-text-display" class="text-cyan-300">Iniciante</span>
+                                    <i class="ph-bold ph-caret-down text-xs text-gray-400"></i>
                                 </div>
                             </div>
 
@@ -699,12 +972,12 @@
                             ❤️ <span id="phrase-lives-count">10</span> vidas
                         </div>
                         <div class="text-lg font-bold text-gray-300 text-right">
-                            Pontuação<br><span id="score" class="text-cyan-400 text-3xl font-extrabold">0</span>
+                            Pontuação<br><span id="score" class="text-3d-neon-cyan text-3xl">0</span>
                         </div>
                     </div>
                 </div>
                 <div class="content-panel">
-                    <h2 id="game-title" class="font-cyber text-2xl md:text-3xl font-bold text-center mb-4 text-white">Modo de Jogo</h2>
+                    <h2 id="game-title" class="text-3d-title text-2xl md:text-3xl text-center mb-4">Modo de Jogo</h2>
                     <div id="question-container" class="text-center text-xl text-gray-200 mb-6 min-h-[60px]"></div>
                     <div id="feedback-container" class="text-center text-lg md:text-xl font-bold mb-4 min-h-[2rem]"></div>
                     <div id="options-container" class="space-y-3.5"></div>
@@ -720,14 +993,14 @@
                         <i class="ph-bold ph-arrow-left"></i> Sair
                     </button>
                     <div class="text-lg font-bold text-gray-300 text-right">
-                        Pontuação<br><span id="tf-score" class="text-amber-400 text-3xl font-extrabold">0</span>
+                        Pontuação<br><span id="tf-score" class="text-3d-neon-cyan text-3xl">0</span>
                     </div>
                 </div>
-                <h2 class="font-cyber text-2xl md:text-3xl font-bold text-center text-white mb-6">Verdadeiro ou Falso?</h2>
+                <h2 class="text-3d-title text-2xl md:text-3xl text-center mb-6">Verdadeiro ou Falso?</h2>
 
-                <div class="bg-slate-900/80 p-8 rounded-2xl border border-cyan-500/30 mb-8 shadow-2xl">
+                <div class="bg-slate-900/80 p-8 rounded-2xl border border-cyan-500/35 mb-8 shadow-2xl">
                     <div class="flex items-center justify-center gap-3 mb-3">
-                        <p id="tf-english-word" class="text-4xl md:text-5xl font-extrabold text-cyan-300">Word</p>
+                        <p id="tf-english-word" class="text-3d-hero text-3xl md:text-5xl">Word</p>
                         <button id="tf-speak-btn" class="btn btn-speak-inline bg-cyan-500 hover:bg-cyan-400 text-slate-950 p-2.5 rounded-full" title="Ouvir pronúncia">
                             <i class="ph-fill ph-speaker-high text-xl"></i>
                         </button>
@@ -756,12 +1029,12 @@
                         <i class="ph-bold ph-arrow-left"></i> Sair
                     </button>
                     <div class="text-lg font-bold text-gray-300 text-right">
-                        Pontuação<br><span id="scramble-score" class="text-lime-400 text-3xl font-extrabold">0</span>
+                        Pontuação<br><span id="scramble-score" class="text-3d-neon-cyan text-3xl">0</span>
                     </div>
                 </div>
-                <h2 class="font-cyber text-2xl md:text-3xl font-bold text-center text-white mb-2">Desembaralhe</h2>
+                <h2 class="text-3d-title text-2xl md:text-3xl text-center mb-2">Desembaralhe</h2>
                 <div class="flex items-center justify-center gap-2 mb-8">
-                    <p id="scramble-hint" class="text-cyan-200 text-xl bg-slate-900/80 inline-block px-5 py-2.5 rounded-xl border border-cyan-500/30">Tradução: ...</p>
+                    <p id="scramble-hint" class="text-cyan-200 text-xl bg-slate-900/80 inline-block px-5 py-2.5 rounded-xl border border-cyan-500/35">Tradução: ...</p>
                     <button id="scramble-speak-btn" class="btn btn-speak-inline bg-cyan-500 hover:bg-cyan-400 text-slate-950 p-3 rounded-full" title="Ouvir pronúncia">
                         <i class="ph-fill ph-speaker-high text-xl"></i>
                     </button>
@@ -780,7 +1053,7 @@
                     <button id="exit-crossword-btn" class="btn btn-neutral font-bold py-2 px-4 rounded-xl flex items-center gap-2">
                         <i class="ph-bold ph-arrow-left"></i> Sair
                     </button>
-                    <h2 class="font-cyber text-xl md:text-3xl font-bold text-center text-white">Palavras Cruzadas</h2>
+                    <h2 class="text-3d-title text-xl md:text-3xl text-center">Palavras Cruzadas</h2>
                     <div class="w-20"></div>
                 </div>
                 <div class="flex flex-col md:flex-row gap-6">
@@ -800,7 +1073,7 @@
                     <button id="exit-wordsearch-btn" class="btn btn-neutral font-bold py-2 px-4 rounded-xl flex items-center gap-2">
                         <i class="ph-bold ph-arrow-left"></i> Sair
                     </button>
-                    <h2 class="font-cyber text-xl md:text-3xl font-bold text-center text-white">Caça-Palavras</h2>
+                    <h2 class="text-3d-title text-xl md:text-3xl text-center">Caça-Palavras</h2>
                     <div id="wordsearch-score" class="text-lg font-bold text-emerald-400">0/0</div>
                 </div>
                 <div class="flex flex-col md:flex-row gap-6">
@@ -820,7 +1093,7 @@
                     <button id="exit-hangman-btn" class="btn btn-neutral font-bold py-2 px-4 rounded-xl flex items-center gap-2">
                         <i class="ph-bold ph-arrow-left"></i> Sair
                     </button>
-                    <h2 class="font-cyber text-xl md:text-3xl font-bold text-center text-white">Jogo da Forca</h2>
+                    <h2 class="text-3d-title text-xl md:text-3xl text-center">Jogo da Forca</h2>
                     <div id="hangman-lives" class="text-lg font-bold text-rose-400">❤️ 6</div>
                 </div>
                 <div class="text-center">
@@ -843,9 +1116,9 @@
                     <button id="exit-memory-btn" class="btn btn-neutral font-bold py-2 px-4 rounded-xl flex items-center gap-2">
                         <i class="ph-bold ph-arrow-left"></i> Sair
                     </button>
-                    <h2 class="font-cyber text-xl md:text-3xl font-bold text-center text-white">Jogo da Memória 3D</h2>
+                    <h2 class="text-3d-title text-xl md:text-3xl text-center">Jogo da Memória 3D</h2>
                     <div class="text-lg font-bold text-right">
-                        Tentativas<br><span id="memory-moves" class="text-cyan-400 text-3xl font-extrabold">0</span>
+                        Tentativas<br><span id="memory-moves" class="text-3d-neon-cyan text-3xl">0</span>
                     </div>
                 </div>
                 <div id="memory-grid" class="grid grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 md:gap-4 justify-center"></div>
@@ -855,9 +1128,9 @@
         <!-- Tela Final -->
         <div id="final-screen" class="screen hidden text-center">
             <div class="content-panel">
-                <h2 id="final-title" class="font-cyber text-3xl md:text-4xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-purple-400">Fim de Jogo!</h2>
+                <h2 id="final-title" class="text-3d-hero text-3xl md:text-4xl mb-4">Fim de Jogo!</h2>
                 <p id="final-subtitle" class="text-xl md:text-2xl mb-2 text-gray-300">Sua pontuação final:</p>
-                <p id="final-score" class="font-cyber font-bold text-amber-300 text-6xl md:text-7xl mb-6 animate-pulse">0</p>
+                <p id="final-score" class="text-3d-hero text-6xl md:text-7xl mb-6 animate-pulse">0</p>
                 <p id="total-words-info" class="text-gray-400 mb-8"></p>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <button id="restart-game-btn" class="btn bg-gradient-to-r from-cyan-500 to-indigo-600 w-full font-bold py-4 px-4 rounded-xl text-lg flex items-center justify-center gap-2">
@@ -883,7 +1156,7 @@
                     <button id="dictionary-back-btn" class="btn btn-neutral font-bold py-2 px-4 rounded-xl flex items-center gap-2">
                         <i class="ph-bold ph-arrow-left"></i> Voltar
                     </button>
-                    <h2 id="dictionary-title" class="font-cyber text-xl md:text-3xl font-bold text-center text-white flex items-center gap-2">
+                    <h2 id="dictionary-title" class="text-3d-title text-xl md:text-3xl text-center flex items-center gap-2">
                         <i class="ph-fill ph-book-bookmark text-cyan-400"></i> Dicionário 3D
                     </h2>
                     <div class="w-20"></div>
@@ -899,7 +1172,7 @@
             <button id="close-ranking-btn" class="absolute -top-3 -right-3 bg-gray-800 hover:bg-rose-500 text-white rounded-full p-1 w-8 h-8 flex items-center justify-center transition-all border border-gray-600">
                 <i class="ph-bold ph-x text-lg"></i>
             </button>
-            <h2 class="font-cyber text-xl md:text-2xl font-bold text-amber-300 mb-4 text-center flex items-center justify-center gap-2">
+            <h2 class="text-3d-title text-xl md:text-2xl text-amber-300 mb-4 text-center flex items-center justify-center gap-2">
                 <i class="ph-fill ph-trophy"></i> Top 20 Semanal
             </h2>
             <div id="ranking-list" class="space-y-2 max-h-[50vh] overflow-y-auto pr-2"></div>
@@ -909,9 +1182,9 @@
     <!-- Modal de Ajuda -->
     <div id="help-modal" class="modal-overlay">
         <div class="modal-content">
-            <h2 class="font-cyber text-2xl font-bold mb-4 text-center text-cyan-300">Como Jogar</h2>
+            <h2 class="text-3d-title text-2xl mb-4 text-center">Como Jogar</h2>
             <div class="space-y-3 text-gray-300 text-sm max-h-[60vh] overflow-y-auto pr-2">
-                <div><h3 class="font-semibold text-base text-cyan-300">Pronúncia Nativa em Inglês:</h3><p>Clique nas palavras ou no ícone de alto-falante em qualquer modo para ouvir a pronúncia em inglês e treinar seu ouvido.</p></div>
+                <div><h3 class="font-semibold text-base text-cyan-300">Pronúncia Nativa em Inglês:</h3><p>Clique nas palavras, balões holográficos ou no ícone de alto-falante em qualquer modo para ouvir a pronúncia em inglês e treinar seu ouvido.</p></div>
                 <div><h3 class="font-semibold text-base text-rose-400">Jogos de Frase (10 Vidas):</h3><p>Nos modos <strong>Frases</strong> e <strong>Complete a Frase</strong>, você possui <strong class="text-white">10 vidas</strong> e pode tentar na mesma frase até acertar ou esgotar as vidas.</p></div>
                 <div><h3 class="font-semibold text-base text-amber-400">Demais Modos:</h3><p>Nos modos Vocabulário, Audição, Letras Embaralhadas, Verdadeiro ou Falso e Modo Inverso, o desafio encerra no primeiro erro.</p></div>
                 <div><h3 class="font-semibold text-base text-orange-300">Palavras Cruzadas & Caça-Palavras:</h3><p>Complete o quadro ou encontre as palavras escondidas em inglês e ouça cada termo.</p></div>
@@ -977,7 +1250,7 @@
 
             <img src="https://i.imgur.com/PbOYu8p.png" alt="Logotipo do Jogo" class="logo-3d w-20 h-auto mx-auto mb-4">
 
-            <h2 class="font-cyber text-xl font-bold text-purple-300 mb-3">Apoie o Projeto!</h2>
+            <h2 class="text-3d-title text-xl mb-3">Apoie o Projeto!</h2>
 
             <p class="text-gray-300 text-sm mb-6 leading-relaxed">Este jogo é 100% gratuito. Sua doação ajuda a manter o projeto funcionando e crescendo. Muito obrigado!</p>
 
@@ -1004,7 +1277,7 @@
     <!-- Modal de Mensagens Genéricas -->
     <div id="alert-modal" class="modal-overlay" style="z-index: 10006;">
         <div class="modal-content relative border-2 border-cyan-400/70 max-w-sm text-center">
-            <h2 class="font-cyber text-xl font-bold text-cyan-300 mb-4" id="alert-title">Atenção</h2>
+            <h2 class="text-3d-title text-xl mb-4" id="alert-title">Atenção</h2>
             <p class="text-gray-200 mb-6" id="alert-message">Mensagem aqui</p>
             <button id="close-alert-btn" class="btn bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold py-2 px-6 rounded-xl w-full">OK</button>
         </div>
@@ -1365,7 +1638,7 @@
         ],
         "Verbos (A-G)": [{word:"Accept",pt:"Aceitar", sentence:"She accepted the gift.", pt_sentence:"Ela aceitou o presente."},{word:"Ask",pt:"Perguntar", sentence:"Can I ask a question?", pt_sentence:"Posso fazer uma pergunta?"},{word:"Be",pt:"Ser/Estar", sentence:"I want to be a doctor.", pt_sentence:"Eu quero ser médico(a)."},{word:"Begin",pt:"Começar", sentence:"The class begins at 9.", pt_sentence:"A aula começa às 9."},{word:"Believe",pt:"Acreditar", sentence:"I believe in you.", pt_sentence:"Eu acredito em você."},{word:"Break",pt:"Quebrar", sentence:"Don't break the glass.", pt_sentence:"Não quebre o copo."},{word:"Bring",pt:"Trazer", sentence:"Bring me some water.", pt_sentence:"Traga-me um pouco de água."},{word:"Buy",pt:"Comprar", sentence:"I need to buy milk.", pt_sentence:"Eu preciso comprar leite."},{word:"Call",pt:"Chamar/Ligar", sentence:"Call me tomorrow.", pt_sentence:"Me ligue amanhã."},{word:"Can",pt:"Poder", sentence:"I can swim.", pt_sentence:"Eu sei nadar."},{word:"Change",pt:"Mudar", sentence:"People change over time.", pt_sentence:"As pessoas mudam com o tempo."},{word:"Choose",pt:"Escolher", sentence:"You have to choose one.", pt_sentence:"Você tem que escolher um."},{word:"Clean",pt:"Limpar", sentence:"Please clean your room.", pt_sentence:"Por favor, limpe seu quarto."},{word:"Close",pt:"Fechar", sentence:"Close the door.", pt_sentence:"Feche a porta."},{word:"Come",pt:"Vir", sentence:"Are you coming to the party?", pt_sentence:"Você vem para a festa?"},{word:"Cook",pt:"Cozinhar", sentence:"My mother cooks well.", pt_sentence:"Minha mãe cozinha bem."},{word:"Create",pt:"Criar", sentence:"She created a masterpiece.", pt_sentence:"Ela criou uma obra-prima."},{word:"Cut",pt:"Cortar", sentence:"Be careful with the knife when you cut.", pt_sentence:"Cuidado com a faca quando você corta."},{word:"Dance",pt:"Dançar", sentence:"They love to dance.", pt_sentence:"Eles/Elas amam dançar."},{word:"Decide",pt:"Decidir", sentence:"I can't decide what to eat.", pt_sentence:"Não consigo decidir o que comer."},{word:"Do",pt:"Fazer", sentence:"What are you doing?", pt_sentence:"O que você está fazendo?"},{word:"Draw",pt:"Desenhar", sentence:"He likes to draw animals.", pt_sentence:"Ele gosta de desenhar animais."},{word:"Dream",pt:"Sonhar", sentence:"I had a strange dream last night.", pt_sentence:"Eu tive um sonho estranho ontem à noite."},{word:"Drink",pt:"Beber", sentence:"I need to drink water.", pt_sentence:"Eu preciso beber água."},{word:"Drive",pt:"Dirigir", sentence:"I will drive to work.", pt_sentence:"Eu vou dirigir para o trabalho."},{word:"Eat",pt:"Comer", sentence:"Let's eat something.", pt_sentence:"Vamos comer alguma coisa."},{word:"Explain",pt:"Explicar", sentence:"Can you explain this to me?", pt_sentence:"Você pode me explicar isso?"},{word:"Fall",pt:"Cair", sentence:"The leaves fall in autumn.", pt_sentence:"As folhas caem no outono."},{word:"Feel",pt:"Sentir", sentence:"How are you feeling?", pt_sentence:"Como você está se sentindo?"},{word:"Find",pt:"Encontrar", sentence:"I can't find my keys.", pt_sentence:"Não consigo encontrar minhas chaves."},{word:"Finish",pt:"Terminar", sentence:"Did you finish your homework?", pt_sentence:"Você terminou sua lição de casa?"},{word:"Fly",pt:"Voar", sentence:"Birds can fly.", pt_sentence:"Pássaros podem voar."},{word:"Follow",pt:"Seguir", sentence:"Follow the instructions.", pt_sentence:"Siga as instruções."},{word:"Forget",pt:"Esquecer", sentence:"Don't forget your keys.", pt_sentence:"Não esqueça suas chaves."},{word:"Get",pt:"Obter/Pegar", sentence:"I need to get some sleep.", pt_sentence:"Eu preciso dormir um pouco."},{word:"Give",pt:"Dar", sentence:"Give me the book.", pt_sentence:"Me dê o livro."},{word:"Go",pt:"Ir", sentence:"Let's go to the beach.", pt_sentence:"Vamos para a praia."},{word:"Grow",pt:"Crescer", sentence:"Plants need water to grow.", pt_sentence:"As plantas precisam de água para crescer."}],
         "Verbos (H-P)": [{word:"Happen",pt:"Acontecer", sentence:"What happened here?", pt_sentence:"O que aconteceu aqui?"},{word:"Have",pt:"Ter", sentence:"I have a car.", pt_sentence:"Eu tenho um carro."},{word:"Hear",pt:"Ouvir", sentence:"Can you hear that noise?", pt_sentence:"Você consegue ouvir esse barulho?"},{word:"Help",pt:"Ajudar", sentence:"Can you help me?", pt_sentence:"Você pode me ajudar?"},{word:"Hold",pt:"Segurar", sentence:"Hold my hand.", pt_sentence:"Segure minha mão."},{word:"Hope",pt:"Esperar", sentence:"I hope you feel better soon.", pt_sentence:"Espero que você se sinta melhor em breve."},{word:"Hurt",pt:"Machucar", sentence:"My leg hurts.", pt_sentence:"Minha perna dói."},{word:"Imagine",pt:"Imaginar", sentence:"Imagine a world without music.", pt_sentence:"Imagine um mundo sem música."},{word:"Jump",pt:"Pular", sentence:"The kids are jumping on the bed.", pt_sentence:"As crianças estão pulando na cama."},{word:"Keep",pt:"Manter/Guardar", sentence:"Keep the change.", pt_sentence:"Fique com o troco."},{word:"Know",pt:"Saber/Conhecer", sentence:"I know the answer.", pt_sentence:"Eu sei a resposta."},{word:"Laugh",pt:"Rir", sentence:"They laugh at the joke.", pt_sentence:"Eles/Elas riem da piada."},{word:"Learn",pt:"Aprender", sentence:"I want to learn English.", pt_sentence:"Eu quero aprender inglês."},{word:"Leave",pt:"Sair/Deixar", sentence:"The train leaves at 5.", pt_sentence:"O trem sai às 5."},{word:"Lend",pt:"Emprestar", sentence:"Can you lend me a pen?", pt_sentence:"Você pode me emprestar uma caneta?"},{word:"Let",pt:"Deixar/Permitir", sentence:"Let me help you.", pt_sentence:"Deixe-me ajudar você."},{word:"Listen",pt:"Escutar", sentence:"Listen to the music.", pt_sentence:"Ouça a música."},{word:"Live",pt:"Viver/Morar", sentence:"I live in Brazil.", pt_sentence:"Eu moro no Brasil."},{word:"Look",pt:"Olhar", sentence:"Look at that beautiful sunset.", pt_sentence:"Olhe aquele lindo pôr do sol."},{word:"Lose",pt:"Perder", sentence:"Don't lose your ticket.", pt_sentence:"Não perca seu ingresso."},{word:"Love",pt:"Amar", sentence:"I love my family.", pt_sentence:"Eu amo minha família."},{word:"Make",pt:"Fazer", sentence:"Let's make a cake.", pt_sentence:"Vamos fazer um bolo."},{word:"Mean",pt:"Significar", sentence:"What does this word mean?", pt_sentence:"O que esta palavra significa?"},{word:"Meet",pt:"Encontrar/Conhecer", sentence:"Nice to meet you.", pt_sentence:"Prazer em conhecê-lo(a)."},{word:"Move",pt:"Mover", sentence:"Can you move this box?", pt_sentence:"Você pode mover esta caixa?"},{word:"Need",pt:"Precisar", sentence:"I need your help.", pt_sentence:"Eu preciso da sua ajuda."},{word:"Open",pt:"Abrir", sentence:"Open the window.", pt_sentence:"Abra a janela."},{word:"Pay",pt:"Pagar", sentence:"I have to pay the bills.", pt_sentence:"Eu tenho que pagar as contas."},{word:"Play",pt:"Jogar/Brincar", sentence:"The children play in the park.", pt_sentence:"As crianças brincam no parque."},{word:"Promise",pt:"Prometer", sentence:"I promise I will be there.", pt_sentence:"Eu prometo que estarei lá."},{word:"Put",pt:"Colocar", sentence:"Put the books on the table.", pt_sentence:"Coloque os livros na mesa."}],
-        "Verbos (Q-Z)": [{word:"Read",pt:"Ler", sentence:"I like to read books.", pt_sentence:"Eu gosto de ler livros."},{word:"Remember",pt:"Lembrar", sentence:"I remember his name.", pt_sentence:"Eu me lembro do nome dele."},{word:"Run",pt:"Correr", sentence:"I run every morning.", pt_sentence:"Eu corro toda manhã."},{word:"Say",pt:"Dizer", sentence:"What did you say?", pt_sentence:"O que você disse?"},{word:"See",pt:"Ver", sentence:"I can see the mountains.", pt_sentence:"Eu consigo ver as montanhas."},{word:"Sell",pt:"Vender", sentence:"He sells cars.", pt_sentence:"Ele vende carros."},{word:"Send",pt:"Enviar", sentence:"Send me an email.", pt_sentence:"Envie-me um e-mail."},{word:"Show",pt:"Mostrar", sentence:"Show me your photo.", pt_sentence:"Mostre-me sua foto."},{word:"Sing",pt:"Cantar", sentence:"She sings beautifully.", pt_sentence:"Ela canta lindamente."},{word:"Sit",pt:"Sentar", sentence:"Please sit down.", pt_sentence:"Por favor, sente-se."},{word:"Sleep",pt:"Dormir", sentence:"The baby is sleeping.", pt_sentence:"O bebê está dormindo."},{word:"Speak",pt:"Falar", sentence:"He speaks three languages.", pt_sentence:"Ele fala três idiomas."},{word:"Spend",pt:"Gastar/Passar", sentence:"I spend a lot of time reading.", pt_sentence:"Eu passo muito tempo lendo."},{word:"Start",pt:"Começar", sentence:"The movie starts at 8.", pt_sentence:"O filme começa às 8."},{word:"Stay",pt:"Ficar", sentence:"Let's stay at home tonight.", pt_sentence:"Vamos ficar em casa esta noite."},{word:"Stop",pt:"Parar", sentence:"The bus stopped.", pt_sentence:"O ônibus parou."},{word:"Study",pt:"Estudar", sentence:"I need to study for the test.", pt_sentence:"Eu preciso estudar para a prova."},{word:"Take",pt:"Pegar/Levar", sentence:"Take an umbrella with you.", pt_sentence:"Leve um guarda-chuva com você."},{word:"Talk",pt:"Conversar", sentence:"We need to talk.", pt_sentence:"Nós precisamos conversar."},{word:"Teach",pt:"Ensinar", sentence:"She teaches English.", pt_sentence:"Ela ensina inglês."},{word:"Tell",pt:"Contar/Dizer", sentence:"Tell me a story.", pt_sentence:"Conte-me uma história."},{word:"Think",pt:"Pensar", sentence:"What do you think?", pt_sentence:"O que você acha?"},{word:"Travel",pt:"Viajar", sentence:"I love to travel.", pt_sentence:"Eu amo viajar."},{word:"Try",pt:"Tentar", sentence:"You should try again.", pt_sentence:"Você deveria tentar novamente."},{word:"Understand",pt:"Entender", sentence:"Do you understand?", pt_sentence:"Você entende?"},{word:"Use",pt:"Usar", sentence:"Can I use your phone?", pt_sentence:"Posso usar seu telefone?"},{word:"Wait",pt:"Esperar", sentence:"Wait for me!", pt_sentence:"Espere por mim!"},{word:"Walk",pt:"Andar", sentence:"I walk to school every day.", pt_sentence:"Eu ando para a escola todo dia."},{word:"Want",pt:"Querer", sentence:"What do you want to eat?", pt_sentence:"O que você quer comer?"},{word:"Watch",pt:"Assistir", sentence:"Let's watch a movie.", pt_sentence:"Vamos assistir a um filme."},{word:"Work",pt:"Trabalhar", sentence:"I work at a hospital.", pt_sentence:"Eu trabalho em um hospital."},{word:"Worry",pt:"Se preocupar", sentence:"Don't worry, be happy.", pt_sentence:"Não se preocupe, seja feliz."},{word:"Write",pt:"Escrever", sentence:"She is writing a letter.", pt_sentence:"Ela está escrevendo uma carta."}],
+        "Verbos (Q-Z)": [{word:"Read",pt:"Ler", sentence:"I like to read books.", pt_sentence:"Eu gosto de ler livros."},{word:"Remember",pt:"Lembrar", sentence:"I remember his name.", pt_sentence:"Eu me lembro do nome dele."},{word:"Run",pt:"Correr", sentence:"I run every morning.", pt_sentence:"Eu corro toda manhã."},{word:"Say",pt:"Dizer", sentence:"What did you say?", pt_sentence:"O que você disse?"},{word:"See",pt:"Ver", sentence:"I can see the mountains.", pt_sentence:"Eu consigo ver as montanhas."},{word:"Sell",pt:"Vender", sentence:"He sells cars.", pt_sentence:"Ele vende carros."},{word:"Send",pt:"Enviar", sentence:"Send me an email.", pt_sentence:"Envie-me um e-mail."},{word:"Show",pt:"Mostrar", sentence:"Show me your photo.", pt_sentence:"Mostre-me sua foto."},{word:"Sing",pt:"Cantar", sentence:"She sings beautifully.", pt_sentence:"Ela canta lindamente."},{word:"Sit",pt:"Sentar", sentence:"Please sit down.", pt_sentence:"Por favor, sente-se."},{word:"Sleep",pt:"Dormir", sentence:"The baby is sleeping.", pt_sentence:"O bebê está dormindo."},{word:"Speak",pt:"Falar", sentence:"He speaks three languages.", pt_sentence:"Ele fala três idiomas."},{word:"Spend",pt:"Gastar/Passar", sentence:"I spend a lot of time reading.", pt_sentence:"Eu passo muito tempo lendo."},{word:"Start",pt:"Começar", sentence:"The movie starts at 8.", pt_sentence:"O filme começa às 8."},{word:"Stay",pt:"Ficar", sentence:"Let's stay at home tonight.", pt_sentence:"Vamos ficar em casa esta noite."},{word:"Stop",pt:"Parar", sentence:"The bus stopped.", pt_sentence:"O ônibus parou."},{word:"Study",pt:"Estudar", sentence:"I need to study for the test.", pt_sentence:"Eu preciso estudar para a prova."},{word:"Take",pt:"Pegar/Levar", sentence:"Take an umbrella with you.", pt_sentence:"Leve um guarda-chuva com você."},{word:"Talk",pt:"Conversar", sentence:"We need to talk.", pt_sentence:"Nós precisamos conversar."},{word:"Teach",pt:"Ensinar", sentence:"She teaches English.", pt_sentence:"Ela ensina inglês."},{word:"Tell",pt:"Contar/Dizer", sentence:"Tell me a story.", pt_sentence:"Conte-me uma história."},{word:"Think",pt:"Pensar", sentence:"What do you think?", pt_sentence:"O que você acha?"},{word:"Travel",pt:"Viajar", sentence:"I love to travel.", pt_sentence:"Eu amo viajar."},{word:"Try",pt:"Tentar", sentence:"You should try again.", pt_sentence:"Você deveria tentar novamente."},{word:"Understand",pt:"Entender", sentence:"Do you understand?", pt_sentence:"Você entende?"},{word:"Use",pt:"Usar", sentence:"Can I use your phone?", pt_sentence:"Posso usar seu telefone?"},{word:"Wait",pt:"Esperar", sentence:"Wait for me!", pt_sentence:"Espere por mim!"},{word:"Walk",pt:"Andar", sentence:"I walk to school every day.", pt_sentence:"Eu ando para a escola todo dia."},{word:"Want",pt:"Querer", sentence:"What do you want to eat?", pt_sentence:"O que você quer comer?"},{word:"Watch",pt:"Assistir", sentence:"Let's watch a movie.", pt_sentence:"Vamos assistir a um filme."},{word:"Work",pt:"Trabalhar", sentence:"I work at a hospital.", pt_sentence:"Eu trabalho em um hospital."},{word:"Worry",pt:"Se preocupar", sentence:"Don't worry, be happy.", pt_sentence:"Não se preocupe, seja feliz."},{word:"Write",pt:"Escrever", sentence:"She is writing a letter.", pt_sentence:"Ela está escrevendo a carta."}],
         "Vocabulário Essencial 1": [{"word":"the","pt":"o, a, os, as"},{"word":"of","pt":"de"},{"word":"to","pt":"para"},{"word":"and","pt":"e"},{"word":"a","pt":"um, uma"},{"word":"in","pt":"em, dentro"},{"word":"is","pt":"é"},{"word":"it","pt":"isto"},{"word":"you","pt":"você"},{"word":"that","pt":"que, aquele"},{"word":"he","pt":"ele"},{"word":"was","pt":"era, estava"},{"word":"for","pt":"por, para"},{"word":"on","pt":"em"},{"word":"are","pt":"são, estão"},{"word":"with","pt":"com"},{"word":"as","pt":"como"},{"word":"I","pt":"eu"},{"word":"his","pt":"seu"},{"word":"they","pt":"eles"},{"word":"be","pt":"ser, estar"},{"word":"at","pt":"em"},{"word":"one","pt":"um"},{"word":"have","pt":"ter"},{"word":"this","pt":"este"},{"word":"from","pt":"de"},{"word":"or","pt":"ou"},{"word":"had","pt":"tinha"},{"word":"by","pt":"por"},{"word":"hot","pt":"quente"},{"word":"word","pt":"palavra"},{"word":"but","pt":"mas"},{"word":"what","pt":"o que"},{"word":"some","pt":"algum"},{"word":"we","pt":"nós"},{"word":"can","pt":"pode"},{"word":"out","pt":"fora"},{"word":"other","pt":"outro"},{"word":"were","pt":"eram, estavam"},{"word":"all","pt":"todo"},{"word":"there","pt":"lá"},{"word":"when","pt":"quando"},{"word":"up","pt":"para cima"},{"word":"use","pt":"usar"},{"word":"your","pt":"seu"},{"word":"how","pt":"como"},{"word":"said","pt":"disse"},{"word":"an","pt":"um, uma"},{"word":"each","pt":"cada"},{"word":"she","pt":"ela"}],
         "Vocabulário Essencial 2": [{"word":"which","pt":"qual"},{"word":"do","pt":"fazer"},{"word":"their","pt":"deles"},{"word":"time","pt":"tempo"},{"word":"if","pt":"se"},{"word":"will","pt":"irá"},{"word":"way","pt":"caminho"},{"word":"about","pt":"sobre"},{"word":"many","pt":"muitos"},{"word":"then","pt":"então"},{"word":"them","pt":"eles"},{"word":"write","pt":"escrever"},{"word":"would","pt":"iria"},{"word":"like","pt":"gostar"},{"word":"so","pt":"assim"},{"word":"these","pt":"estes"},{"word":"her","pt":"dela"},{"word":"long","pt":"longo"},{"word":"make","pt":"fazer"},{"word":"thing","pt":"coisa"},{"word":"see","pt":"ver"},{"word":"him","pt":"ele"},{"word":"two","pt":"dois"},{"word":"has","pt":"tem"},{"word":"look","pt":"olhar"},{"word":"more","pt":"mais"},{"word":"day","pt":"dia"},{"word":"could","pt":"poderia"},{"word":"go","pt":"ir"},{"word":"come","pt":"vir"},{"word":"did","pt":"fez"},{"word":"number","pt":"número"},{"word":"sound","pt":"som"},{"word":"no","pt":"não"},{"word":"most","pt":"a maioria"},{"word":"people","pt":"pessoas"},{"word":"my","pt":"meu"},{"word":"over","pt":"acima"},{"word":"know","pt":"saber"},{"word":"water","pt":"água"},{"word":"than","pt":"do que"},{"word":"call","pt":"chamar"},{"word":"first","pt":"primeiro"},{"word":"who","pt":"quem"},{"word":"may","pt":"pode"},{"word":"down","pt":"para baixo"},{"word":"side","pt":"lado"},{"word":"been","pt":"sido"},{"word":"now","pt":"agora"},{"word":"find","pt":"encontrar"}],
         "Vocabulário Essencial 3": [{"word":"any","pt":"qualquer"},{"word":"new","pt":"novo"},{"word":"work","pt":"trabalho"},{"word":"part","pt":"parte"},{"word":"take","pt":"pegar"},{"word":"get","pt":"obter"},{"word":"place","pt":"lugar"},{"word":"made","pt":"feito"},{"word":"live","pt":"viver"},{"word":"where","pt":"onde"},{"word":"after","pt":"depois"},{"word":"back","pt":"atrás"},{"word":"little","pt":"pequeno"},{"word":"only","pt":"somente"},{"word":"round","pt":"redondo"},{"word":"man","pt":"homem"},{"word":"year","pt":"ano"},{"word":"came","pt":"veio"},{"word":"show","pt":"mostrar"},{"word":"every","pt":"cada"},{"word":"good","pt":"bom"},{"word":"me","pt":"me"},{"word":"give","pt":"dar"},{"word":"our","pt":"nosso"},{"word":"under","pt":"sob"},{"word":"name","pt":"nome"},{"word":"very","pt":"muito"},{"word":"through","pt":"através"},{"word":"just","pt":"apenas"},{"word":"form","pt":"forma"},{"word":"sentence","pt":"sentença"},{"word":"great","pt":"ótimo"},{"word":"think","pt":"pensar"},{"word":"say","pt":"dizer"},{"word":"help","pt":"ajudar"},{"word":"low","pt":"baixo"},{"word":"line","pt":"linha"},{"word":"differ","pt":"diferir"},{"word":"turn","pt":"virar"},{"word":"cause","pt":"causa"},{"word":"much","pt":"muito"},{"word":"mean","pt":"significar"},{"word":"before","pt":"antes"},{"word":"move","pt":"mover"},{"word":"right","pt":"direito"},{"word":"boy","pt":"garoto"},{"word":"old","pt":"velho"},{"word":"too","pt":"também"},{"word":"same","pt":"mesmo"}],
@@ -1571,9 +1844,7 @@
                 if (typeof Tone !== 'undefined' && Tone.context && Tone.context.state !== 'running') {
                     await Tone.start();
                 }
-            } catch (e) {
-                // Ignora bloqueio silencioso antes da interação
-            }
+            } catch (e) {}
         },
 
         async playFuturisticClick(note = "G5") {
@@ -1717,6 +1988,15 @@
         },
 
         setupEventListeners() {
+            // Interação com balões holográficos e cubos 3D decorativos
+            document.querySelectorAll('[data-speak-word]').forEach(el => {
+                el.addEventListener('click', () => {
+                    const word = el.getAttribute('data-speak-word');
+                    this.playFuturisticClick("B5");
+                    if (word) this.speak(word);
+                });
+            });
+
             this.elements.difficultyButtons.forEach(btn => btn.addEventListener('click', () => this.handleDifficultySelect(btn)));
             document.getElementById('start-vocab-btn').addEventListener('click', () => this.startGame('vocab'));
             document.getElementById('start-listening-btn').addEventListener('click', () => this.startGame('listening'));
@@ -1824,7 +2104,6 @@
                 this.elements.rankingModal.classList.remove('active');
             });
 
-            // Botões extras de pronúncia nativa nos modos
             document.getElementById('tf-speak-btn').addEventListener('click', () => {
                 if (this.state.tfState.englishWord) this.speak(this.state.tfState.englishWord);
             });
@@ -2460,7 +2739,7 @@
             this.elements.questionContainer.innerHTML = `
                 O que significa
                 <div class="flex items-center justify-center gap-3 mt-2">
-                    <span class="font-bold text-rose-400 text-2xl">"${correctWord.word}"</span>
+                    <span class="text-3d-neon-cyan text-2xl">"${correctWord.word}"</span>
                     <button id="reverse-speak-btn" type="button" class="btn btn-speak-inline bg-cyan-500 hover:bg-cyan-400 text-slate-950 p-2 rounded-full" title="Ouvir pronúncia">
                         <i class="ph-fill ph-speaker-high text-base"></i>
                     </button>
@@ -2790,9 +3069,9 @@
                 const height = canvas.height;
 
                 const gradient = ctx.createLinearGradient(0, 0, width, height);
-                gradient.addColorStop(0, '#030612');
-                gradient.addColorStop(0.5, '#09132b');
-                gradient.addColorStop(1, '#160a2c');
+                gradient.addColorStop(0, '#030614');
+                gradient.addColorStop(0.5, '#09132e');
+                gradient.addColorStop(1, '#1a0b36');
                 ctx.fillStyle = gradient;
                 ctx.fillRect(0, 0, width, height);
 
