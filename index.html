@@ -36,15 +36,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --glow-color: rgba(34, 211, 238, 0.7);
+            --glow-color: rgba(34, 211, 238, 0.65);
             --neon-cyan: #22d3ee;
+            --neon-sky: #38bdf8;
             --neon-indigo: #6366f1;
             --neon-purple: #a855f7;
             --neon-emerald: #10b981;
+            --surface-glass: rgba(10, 16, 34, 0.76);
+            --surface-card: rgba(15, 23, 42, 0.72);
+            --border-subtle: rgba(148, 163, 184, 0.16);
+            --border-glow: rgba(34, 211, 238, 0.35);
             --mx: 50%;
             --my: 50%;
-            --tilt-x: 0deg;
-            --tilt-y: 0deg;
         }
         * {
             box-sizing: border-box;
@@ -52,44 +55,51 @@
         html, body {
             height: 100%;
             width: 100%;
-            background: #030612;
+            background: #020510;
             margin: 0;
             padding: 0;
+            -webkit-font-smoothing: antialiased;
         }
         body {
             font-family: 'Poppins', sans-serif;
-            color: #e5e7eb;
+            color: #f1f5f9;
         }
         .font-cyber {
             font-family: 'Orbitron', sans-serif;
         }
 
-        /* Animações 3D e Holográficas */
+        /* Scrollbar moderna */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.4); border-radius: 999px; }
+        ::-webkit-scrollbar-thumb { background: rgba(34, 211, 238, 0.35); border-radius: 999px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(34, 211, 238, 0.65); }
+
+        /* Animações Ambientais e 3D */
         @keyframes gradient-shift {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
         @keyframes grid-drift {
-            0% { transform: perspective(750px) rotateX(64deg) translateY(0); }
-            100% { transform: perspective(750px) rotateX(64deg) translateY(48px); }
+            0% { transform: perspective(800px) rotateX(66deg) translateY(0); }
+            100% { transform: perspective(800px) rotateX(66deg) translateY(52px); }
         }
         @keyframes float-3d {
-            0%, 100% { transform: translateY(0px) rotateY(-5deg) rotateX(2deg); }
-            50% { transform: translateY(-9px) rotateY(5deg) rotateX(-2deg); }
+            0%, 100% { transform: translateY(0px) rotateY(-4deg) rotateX(2deg); }
+            50% { transform: translateY(-8px) rotateY(4deg) rotateX(-2deg); }
         }
         @keyframes holo-scan {
-            0% { transform: translateX(-140%) skewX(-24deg); }
-            100% { transform: translateX(260%) skewX(-24deg); }
+            0% { transform: translateX(-150%) skewX(-24deg); }
+            100% { transform: translateX(280%) skewX(-24deg); }
         }
         @keyframes pulse-ring {
             0% { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.45); }
-            70% { box-shadow: 0 0 0 14px rgba(34, 211, 238, 0); }
+            70% { box-shadow: 0 0 0 12px rgba(34, 211, 238, 0); }
             100% { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0); }
         }
         @keyframes aura-spin {
             0% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(180deg) scale(1.06); }
+            50% { transform: rotate(180deg) scale(1.08); }
             100% { transform: rotate(360deg) scale(1); }
         }
 
@@ -99,11 +109,12 @@
             overflow-y: auto;
             overflow-x: hidden;
             background:
-                radial-gradient(circle at var(--mx) var(--my), rgba(34, 211, 238, 0.16), transparent 34%),
-                radial-gradient(circle at 82% 18%, rgba(168, 85, 247, 0.14), transparent 40%),
-                linear-gradient(135deg, #030612 0%, #09132b 50%, #160a2c 100%);
-            background-size: 100% 100%, 100% 100%, 200% 200%;
-            animation: gradient-shift 20s ease infinite;
+                radial-gradient(circle at var(--mx) var(--my), rgba(34, 211, 238, 0.14), transparent 36%),
+                radial-gradient(circle at 85% 12%, rgba(168, 85, 247, 0.16), transparent 42%),
+                radial-gradient(circle at 15% 85%, rgba(16, 185, 129, 0.08), transparent 40%),
+                linear-gradient(145deg, #020510 0%, #071026 52%, #110826 100%);
+            background-size: 100% 100%, 100% 100%, 100% 100%, 200% 200%;
+            animation: gradient-shift 22s ease infinite;
         }
 
         #game-wrapper::before {
@@ -112,51 +123,69 @@
             left: -25%;
             right: -25%;
             bottom: -35%;
-            height: 76%;
+            height: 75%;
             background-image:
-                linear-gradient(to right, rgba(34, 211, 238, 0.15) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(168, 85, 247, 0.15) 1px, transparent 1px);
-            background-size: 48px 48px;
-            animation: grid-drift 3.2s linear infinite;
+                linear-gradient(to right, rgba(34, 211, 238, 0.12) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(168, 85, 247, 0.12) 1px, transparent 1px);
+            background-size: 52px 52px;
+            animation: grid-drift 3.6s linear infinite;
             pointer-events: none;
             z-index: 0;
-            mask-image: linear-gradient(to top, rgba(0,0,0,0.9), transparent 85%);
-            -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.9), transparent 85%);
+            mask-image: linear-gradient(to top, rgba(0,0,0,0.85), transparent 82%);
+            -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.85), transparent 82%);
         }
 
         .ambient-orb {
             position: fixed;
             border-radius: 9999px;
-            filter: blur(70px);
+            filter: blur(85px);
             pointer-events: none;
             z-index: 0;
-            opacity: 0.35;
+            opacity: 0.32;
         }
         .ambient-orb-1 {
-            width: 320px;
-            height: 320px;
-            top: -80px;
-            left: -60px;
+            width: 340px;
+            height: 340px;
+            top: -90px;
+            left: -70px;
             background: #06b6d4;
-            animation: aura-spin 22s linear infinite;
+            animation: aura-spin 24s linear infinite;
         }
         .ambient-orb-2 {
-            width: 360px;
-            height: 360px;
-            bottom: 8%;
+            width: 380px;
+            height: 380px;
+            bottom: 6%;
             right: -90px;
             background: #7c3aed;
-            animation: aura-spin 28s linear infinite reverse;
+            animation: aura-spin 30s linear infinite reverse;
+        }
+
+        /* Top HUD Bar */
+        .hud-topbar {
+            width: 100%;
+            max-width: 60rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.6rem 0.9rem;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+            border-radius: 1.15rem;
+            background: rgba(10, 17, 36, 0.72);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(34, 211, 238, 0.22);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.12);
         }
 
         .screen {
             position: relative;
             z-index: 1;
             width: 100%;
-            max-width: 980px;
+            max-width: 1020px;
             min-height: 100%;
             margin: 0 auto;
-            padding: 1.5rem 1rem;
+            padding: 1.25rem 1rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -169,33 +198,28 @@
         }
 
         .screen:not(.hidden) {
-            animation: screenEnter3D 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            animation: screenEnter3D 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
 
         @keyframes screenEnter3D {
-            from {
-                opacity: 0;
-                transform: translate3d(0, 24px, -95px) rotateX(6deg);
-            }
-            to {
-                opacity: 1;
-                transform: translate3d(0, 0, 0) rotateX(0deg);
-            }
+            from { opacity: 0; transform: translate3d(0, 20px, -70px) rotateX(4deg); }
+            to { opacity: 1; transform: translate3d(0, 0, 0) rotateX(0deg); }
         }
 
+        /* Painéis Glassmorphism Especulares */
         .content-panel {
             position: relative;
             overflow: hidden;
-            background: linear-gradient(155deg, rgba(13, 20, 40, 0.82), rgba(6, 10, 24, 0.92));
-            backdrop-filter: blur(22px);
-            -webkit-backdrop-filter: blur(22px);
-            border: 1px solid rgba(34, 211, 238, 0.28);
+            background: linear-gradient(160deg, rgba(14, 22, 44, 0.84), rgba(6, 11, 26, 0.94));
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--border-glow);
             box-shadow:
-                0 25px 60px rgba(0, 0, 0, 0.7),
-                0 0 36px rgba(34, 211, 238, 0.14),
-                inset 0 1px 0 rgba(255, 255, 255, 0.14);
+                0 28px 70px rgba(0, 0, 0, 0.75),
+                0 0 40px rgba(34, 211, 238, 0.1),
+                inset 0 1px 1px rgba(255, 255, 255, 0.18);
             width: 100%;
-            border-radius: 1.5rem;
+            border-radius: 1.65rem;
             padding: 2rem;
             margin: auto 0;
             flex-shrink: 0;
@@ -208,10 +232,10 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 45%;
+            width: 40%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.07), transparent);
-            animation: holo-scan 7.5s ease-in-out infinite;
+            background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.06), transparent);
+            animation: holo-scan 8s ease-in-out infinite;
             pointer-events: none;
         }
 
@@ -230,203 +254,210 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 0.75rem 0;
+            padding: 0.5rem 0 1rem;
         }
 
         .logo-3d {
-            animation: float-3d 4.5s ease-in-out infinite;
-            filter: drop-shadow(0 0 22px var(--glow-color));
+            animation: float-3d 4.8s ease-in-out infinite;
+            filter: drop-shadow(0 0 24px var(--glow-color));
             transform-style: preserve-3d;
         }
 
         @media (max-width: 768px) {
             .content-panel {
                 padding: 1.25rem;
-                border-radius: 1.15rem;
+                border-radius: 1.25rem;
             }
             .flex.flex-col.md\:flex-row.gap-6 { flex-direction: column; }
         }
 
-        /* Botões Táteis em 3D */
+        /* Botões Modernos com Elevação Suave */
         .btn {
             position: relative;
-            transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.24s ease, filter 0.24s ease, border-color 0.24s ease;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.55);
+            transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.22s ease, filter 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+            border: 1px solid rgba(255, 255, 255, 0.14);
             font-weight: 600;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
-            transform-style: preserve-3d;
-            box-shadow: 0 6px 0 rgba(2, 6, 23, 0.8), 0 12px 24px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 8px 20px rgba(2, 6, 23, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.16);
             cursor: pointer;
         }
         .btn:hover:not(:disabled) {
-            transform: translate3d(0, -4px, 20px) rotateX(5deg) scale(1.025);
-            box-shadow: 0 10px 0 rgba(2, 6, 23, 0.85), 0 18px 30px rgba(34, 211, 238, 0.28);
-            border-color: rgba(103, 232, 249, 0.6);
-            filter: brightness(1.08);
+            transform: translateY(-3px) scale(1.015);
+            box-shadow: 0 14px 28px rgba(2, 6, 23, 0.65), 0 0 20px rgba(34, 211, 238, 0.24);
+            border-color: rgba(103, 232, 249, 0.55);
+            filter: brightness(1.06);
         }
         .btn:active:not(:disabled) {
-            transform: translate3d(0, 3px, 0) scale(0.98);
-            box-shadow: 0 2px 0 rgba(2, 6, 23, 0.85), 0 4px 10px rgba(0, 0, 0, 0.4);
+            transform: translateY(1px) scale(0.985);
+            box-shadow: 0 4px 10px rgba(2, 6, 23, 0.6);
         }
         .btn:disabled { opacity: 0.45; cursor: not-allowed; }
 
         .btn-neutral {
-            background: rgba(30, 41, 59, 0.88);
+            background: rgba(30, 41, 59, 0.78);
             color: #f1f5f9;
-            border-color: rgba(148, 163, 184, 0.28);
+            border-color: rgba(148, 163, 184, 0.24);
+            backdrop-filter: blur(10px);
         }
 
         .btn-speak-inline {
             animation: pulse-ring 2.2s infinite;
         }
 
-        /* Modais */
-        .modal-overlay {
-            position: fixed; inset: 0;
-            background: rgba(2, 6, 23, 0.8);
-            backdrop-filter: blur(10px);
-            display: flex; justify-content: center; align-items: center;
-            z-index: 10000; opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-            perspective: 1200px;
-        }
-        .modal-overlay.active { opacity: 1; pointer-events: auto; }
-        .modal-content {
-            background: linear-gradient(160deg, rgba(15, 23, 42, 0.96), rgba(6, 10, 24, 0.99));
-            padding: 2rem; border-radius: 1.35rem;
-            border: 1px solid rgba(34, 211, 238, 0.38);
-            box-shadow: 0 28px 65px rgba(0, 0, 0, 0.8), 0 0 30px rgba(34, 211, 238, 0.16);
-            max-width: 500px; width: 90%;
-            transform: scale(0.9) rotateX(10deg);
-            transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        .modal-overlay.active .modal-content { transform: scale(1) rotateX(0deg); }
-
+        /* Cards de Dificuldade Modernos */
         .difficulty-btn {
             flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 0.55rem;
-            padding: 1.45rem 0.75rem;
-            border-radius: 1.15rem;
-            font-size: 1.1rem;
+            gap: 0.65rem;
+            padding: 1.5rem 1rem;
+            border-radius: 1.25rem;
+            font-size: 1.05rem;
+            background: linear-gradient(165deg, rgba(22, 33, 62, 0.85), rgba(11, 18, 38, 0.95));
+            border: 1px solid rgba(148, 163, 184, 0.22);
+        }
+        .difficulty-btn .diff-icon-badge {
+            width: 54px;
+            height: 54px;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.14);
         }
         .difficulty-btn.selected {
-            transform: translate3d(0, -6px, 24px) scale(1.04);
-            box-shadow: 0 0 28px var(--neon-cyan), 0 12px 28px rgba(0,0,0,0.55);
-            color: white !important;
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 0 28px rgba(34, 211, 238, 0.35), 0 14px 30px rgba(0, 0, 0, 0.6);
             border: 2px solid #22d3ee;
         }
+
+        /* Bento Grid Cards dos Modos de Jogo */
+        .menu-btn {
+            white-space: normal !important;
+            word-wrap: break-word !important;
+            overflow-wrap: break-word !important;
+            min-height: 106px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 0.55rem;
+            line-height: 1.2 !important;
+            padding: 0.85rem 0.65rem !important;
+            text-align: center;
+            font-size: clamp(0.78rem, 2.8vw, 0.95rem) !important;
+            background: linear-gradient(160deg, rgba(20, 30, 56, 0.88), rgba(10, 16, 34, 0.96)) !important;
+            color: #f8fafc !important;
+            border: 1px solid rgba(148, 163, 184, 0.2) !important;
+            box-shadow: 0 10px 24px rgba(2, 6, 23, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+        }
+        .menu-btn:hover:not(:disabled) {
+            background: linear-gradient(160deg, rgba(28, 42, 78, 0.95), rgba(14, 24, 50, 0.98)) !important;
+            border-color: rgba(34, 211, 238, 0.6) !important;
+            box-shadow: 0 14px 30px rgba(2, 6, 23, 0.7), 0 0 22px rgba(34, 211, 238, 0.22);
+        }
+        .mode-icon-pill {
+            width: 44px;
+            height: 44px;
+            border-radius: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+        }
+
+        /* Modais */
+        .modal-overlay {
+            position: fixed; inset: 0;
+            background: rgba(2, 6, 23, 0.82);
+            backdrop-filter: blur(12px);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 10000; opacity: 0;
+            transition: opacity 0.28s ease;
+            pointer-events: none;
+            perspective: 1200px;
+        }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        .modal-content {
+            background: linear-gradient(160deg, rgba(15, 23, 42, 0.96), rgba(6, 10, 24, 0.99));
+            padding: 1.85rem; border-radius: 1.5rem;
+            border: 1px solid rgba(34, 211, 238, 0.35);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.85), 0 0 35px rgba(34, 211, 238, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+            max-width: 500px; width: 92%;
+            transform: scale(0.92) translateY(12px);
+            transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .modal-overlay.active .modal-content { transform: scale(1) translateY(0); }
 
         .main-footer {
             position: relative;
             z-index: 1;
-            background: rgba(6, 10, 24, 0.72);
-            backdrop-filter: blur(12px);
-            border-top: 1px solid rgba(34, 211, 238, 0.22);
+            background: rgba(5, 9, 22, 0.78);
+            backdrop-filter: blur(14px);
+            border-top: 1px solid rgba(34, 211, 238, 0.18);
             flex-shrink: 0;
             margin-top: auto;
         }
 
         /* Listas de Apoio nos Jogos */
-        .game-list-container { max-height: 230px; overflow-y: auto; padding-right: 8px; }
+        .game-list-container { max-height: 230px; overflow-y: auto; padding-right: 6px; }
         .game-list-item {
             display: flex; justify-content: space-between; align-items: center; gap: 0.5rem;
-            padding: 7px 11px;
-            border-radius: 9px; background-color: rgba(30, 41, 59, 0.68);
+            padding: 8px 12px;
+            border-radius: 10px; background-color: rgba(20, 30, 54, 0.75);
             border: 1px solid rgba(148, 163, 184, 0.18); margin-bottom: 6px;
         }
         .game-list-item .word { font-weight: 600; color: #67e8f9; }
         .game-list-item .translation { color: #cbd5e1; font-style: italic; font-size: 0.9rem; }
-        .game-list-item.found { text-decoration: line-through; background-color: rgba(16, 185, 129, 0.2); border-color: rgba(16, 185, 129, 0.45); }
+        .game-list-item.found { text-decoration: line-through; background-color: rgba(16, 185, 129, 0.18); border-color: rgba(16, 185, 129, 0.45); }
         .game-list-item.found .word, .game-list-item.found .translation { color: #6ee7b7; }
 
         /* Palavras Cruzadas */
-        .crossword-grid { display: grid; gap: 2px; margin: 0 auto; width: 100%; max-width: 420px; position: relative; }
+        .crossword-grid { display: grid; gap: 3px; margin: 0 auto; width: 100%; max-width: 420px; position: relative; }
         .crossword-cell-container { position: relative; }
         .crossword-cell-number { position: absolute; top: 1px; left: 3px; font-size: 0.55rem; font-weight: bold; color: #334155; z-index: 1; pointer-events: none; }
-        .crossword-cell { width: 100%; aspect-ratio: 1/1; text-align: center; font-size: clamp(0.7rem, 2.5vw, 1rem); font-weight: bold; text-transform: uppercase; color: #0f172a; border: 1px solid #94a3b8; background-color: #f8fafc; border-radius: 4px; caret-color: #06b6d4; transition: transform 0.15s ease; }
+        .crossword-cell { width: 100%; aspect-ratio: 1/1; text-align: center; font-size: clamp(0.7rem, 2.5vw, 1rem); font-weight: bold; text-transform: uppercase; color: #0f172a; border: 1px solid #94a3b8; background-color: #f8fafc; border-radius: 5px; caret-color: #06b6d4; transition: transform 0.15s ease; }
         .crossword-cell:focus { outline: 2px solid #22d3ee; background-color: #ffffff; transform: scale(1.08); z-index: 2; }
         .crossword-cell.empty { background-color: transparent; border: none; }
         .crossword-cell.correct { background-color: #10b981; color: #ffffff; border-color: #34d399; }
 
         /* Caça-Palavras */
-        .wordsearch-grid { display: grid; gap: 3px; user-select: none; width: 100%; max-width: 420px; margin: 0 auto; }
-        .wordsearch-cell { width: 100%; aspect-ratio: 1/1; display: flex; justify-content: center; align-items: center; font-size: clamp(0.7rem, 2.5vw, 1rem); font-weight: bold; text-transform: uppercase; background-color: rgba(30, 41, 59, 0.85); border: 1px solid rgba(148, 163, 184, 0.22); border-radius: 6px; cursor: pointer; transition: all 0.2s ease; }
+        .wordsearch-grid { display: grid; gap: 4px; user-select: none; width: 100%; max-width: 420px; margin: 0 auto; }
+        .wordsearch-cell { width: 100%; aspect-ratio: 1/1; display: flex; justify-content: center; align-items: center; font-size: clamp(0.7rem, 2.5vw, 1rem); font-weight: bold; text-transform: uppercase; background-color: rgba(20, 30, 54, 0.85); border: 1px solid rgba(148, 163, 184, 0.22); border-radius: 7px; cursor: pointer; transition: all 0.18s ease; }
         .wordsearch-cell.found { background-color: #10b981; color: white; box-shadow: 0 0 12px rgba(16, 185, 129, 0.45); }
-        .wordsearch-cell.selecting { background-color: #06b6d4; color: #050811; transform: translateZ(10px) scale(1.1); box-shadow: 0 0 14px #22d3ee; }
+        .wordsearch-cell.selecting { background-color: #06b6d4; color: #050811; transform: scale(1.08); box-shadow: 0 0 14px #22d3ee; }
 
         /* Forca */
         #hangman-word-display { letter-spacing: 0.45em; text-shadow: 0 0 18px rgba(34, 211, 238, 0.45); }
         .keyboard-btn { min-width: 36px; }
 
         /* Jogo da Memória 3D */
-        .memory-card {
-            aspect-ratio: 1/1;
-            perspective: 1100px;
-            cursor: pointer;
-        }
-        .memory-card:hover .memory-card-inner {
-            transform: rotateY(10deg) translateZ(8px);
-        }
+        .memory-card { aspect-ratio: 1/1; perspective: 1100px; cursor: pointer; }
+        .memory-card:hover .memory-card-inner { transform: rotateY(8deg) translateZ(6px); }
         .memory-card.is-flipped:hover .memory-card-inner,
-        .memory-card.matched:hover .memory-card-inner {
-            transform: rotateY(180deg) translateZ(10px);
-        }
-        .memory-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
-            transform-style: preserve-3d;
-        }
-        .memory-card.is-flipped .memory-card-inner {
-            transform: rotateY(180deg);
-        }
+        .memory-card.matched:hover .memory-card-inner { transform: rotateY(180deg) translateZ(8px); }
+        .memory-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); transform-style: preserve-3d; }
+        .memory-card.is-flipped .memory-card-inner { transform: rotateY(180deg); }
         .memory-card-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 0.85rem;
-            font-weight: bold;
-            text-align: center;
-            padding: 6px;
-            font-size: clamp(0.65rem, 2vw, 1.05rem);
-            border: 1px solid rgba(34, 211, 238, 0.38);
+            position: absolute; width: 100%; height: 100%;
+            -webkit-backface-visibility: hidden; backface-visibility: hidden;
+            display: flex; justify-content: center; align-items: center;
+            border-radius: 0.95rem; font-weight: bold; text-align: center;
+            padding: 6px; font-size: clamp(0.65rem, 2vw, 1.05rem);
+            border: 1px solid rgba(34, 211, 238, 0.35);
             box-shadow: 0 10px 24px rgba(0, 0, 0, 0.48);
         }
-        .memory-card-front {
-            background: linear-gradient(135deg, #1e1b4b, #0f172a);
-            color: #22d3ee;
-        }
-        .memory-card-back {
-            background: linear-gradient(135deg, #0e7490, #1e293b);
-            transform: rotateY(180deg);
-            color: white;
-        }
-        .memory-card.matched .memory-card-inner {
-            transform: rotateY(180deg) scale(0.96);
-            cursor: default;
-        }
-        .memory-card.matched .memory-card-back {
-            background: linear-gradient(135deg, #059669, #064e3b);
-            border-color: #34d399;
-        }
-        .memory-card.no-match .memory-card-inner {
-            animation: shake3D 0.5s;
-        }
+        .memory-card-front { background: linear-gradient(145deg, #171e3d, #0c1328); color: #22d3ee; }
+        .memory-card-back { background: linear-gradient(145deg, #0e7490, #1e293b); transform: rotateY(180deg); color: white; }
+        .memory-card.matched .memory-card-inner { transform: rotateY(180deg) scale(0.96); cursor: default; }
+        .memory-card.matched .memory-card-back { background: linear-gradient(145deg, #059669, #064e3b); border-color: #34d399; }
+        .memory-card.no-match .memory-card-inner { animation: shake3D 0.45s; }
         @keyframes shake3D {
             0%, 100% { transform: translateX(0) rotateY(180deg); }
             25% { transform: translateX(-6px) rotateY(174deg); }
@@ -434,115 +465,60 @@
         }
 
         /* Flashcard Dicionário 3D */
-        .flashcard-container { perspective: 1300px; height: 230px; }
-        .flashcard {
-            width: 100%; height: 100%; position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-            cursor: pointer;
-        }
-        .flashcard:hover {
-            transform: rotateX(4deg) rotateY(-5deg) translateZ(10px);
-        }
+        .flashcard-container { perspective: 1300px; height: 235px; }
+        .flashcard { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1); cursor: pointer; }
+        .flashcard:hover { transform: rotateX(3deg) rotateY(-4deg) translateZ(8px); }
         .flashcard.is-flipped { transform: rotateY(180deg); }
-        .flashcard.is-flipped:hover { transform: rotateY(180deg) rotateX(4deg) translateZ(10px); }
+        .flashcard.is-flipped:hover { transform: rotateY(180deg) rotateX(3deg) translateZ(8px); }
         .flashcard-face {
             position: absolute; width: 100%; height: 100%;
             -webkit-backface-visibility: hidden; backface-visibility: hidden;
             display: flex; justify-content: center; align-items: center; flex-direction: column;
-            border-radius: 1.25rem;
-            box-shadow: 0 18px 36px rgba(0, 0, 0, 0.55);
+            border-radius: 1.35rem; box-shadow: 0 18px 36px rgba(0, 0, 0, 0.55);
             padding: 1.25rem; text-align: center;
-            border: 1px solid rgba(34, 211, 238, 0.42);
+            border: 1px solid rgba(34, 211, 238, 0.4);
         }
-        .flashcard-front { background: linear-gradient(145deg, #0f172a, #1e293b); }
-        .flashcard-back { background: linear-gradient(145deg, #1e1b4b, #312e81); color: #e0f2fe; transform: rotateY(180deg); }
-        .word-text { font-size: 2.25rem; font-weight: 800; color: #22d3ee; text-shadow: 0 0 14px rgba(34, 211, 238, 0.45); }
+        .flashcard-front { background: linear-gradient(150deg, #0f172a, #1e293b); }
+        .flashcard-back { background: linear-gradient(150deg, #1e1b4b, #312e81); color: #e0f2fe; transform: rotateY(180deg); }
+        .word-text { font-size: 2.2rem; font-weight: 800; color: #22d3ee; text-shadow: 0 0 14px rgba(34, 211, 238, 0.4); }
         .translation-text { font-size: 1.8rem; font-weight: 700; }
 
         /* Palavras Arrastáveis no Modo Frases */
-        #drop-zone, #drag-zone {
-            min-height: 62px;
-            padding: 0.65rem;
-            border-radius: 0.85rem;
-        }
-        #drop-zone {
-            background: rgba(2, 6, 23, 0.6);
-            border: 2px dashed rgba(34, 211, 238, 0.48);
-        }
+        #drop-zone, #drag-zone { min-height: 62px; padding: 0.65rem; border-radius: 0.9rem; }
+        #drop-zone { background: rgba(2, 6, 23, 0.65); border: 2px dashed rgba(34, 211, 238, 0.45); }
         .draggable-word {
             padding: 0.55rem 1rem;
             background: linear-gradient(135deg, #0891b2, #4f46e5);
             color: white;
-            border: 1px solid rgba(255, 255, 255, 0.24);
-            border-radius: 0.65rem;
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            border-radius: 0.7rem;
             cursor: grab;
             margin: 0.25rem;
             touch-action: none;
-            box-shadow: 0 5px 0 rgba(15, 23, 42, 0.85), 0 8px 16px rgba(0, 0, 0, 0.35);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
             user-select: none;
         }
-        .draggable-word:hover {
-            transform: translateY(-2px) scale(1.04);
-        }
+        .draggable-word:hover { transform: translateY(-2px) scale(1.03); }
         .draggable-word:active { cursor: grabbing; transform: scale(0.97); }
 
         /* Scramble Game */
         .scramble-btn {
-            width: 46px;
-            height: 46px;
-            font-size: 1.45rem;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 0.65rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-transform: uppercase;
+            width: 46px; height: 46px; font-size: 1.4rem; font-weight: 800;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 0.7rem; cursor: pointer; transition: all 0.18s ease; text-transform: uppercase;
         }
         @media (max-width: 400px) {
-            .scramble-btn {
-                width: 36px;
-                height: 36px;
-                font-size: 1.15rem;
-            }
+            .scramble-btn { width: 36px; height: 36px; font-size: 1.15rem; }
         }
-        .scramble-btn.slot {
-            background-color: rgba(15, 23, 42, 0.72);
-            border: 2px dashed rgba(34, 211, 238, 0.45);
-            color: white;
-        }
+        .scramble-btn.slot { background-color: rgba(15, 23, 42, 0.75); border: 2px dashed rgba(34, 211, 238, 0.42); color: white; }
         .scramble-btn.letter {
             background: linear-gradient(135deg, #84cc16, #10b981);
             color: #050811;
-            box-shadow: 0 5px 0 rgba(6, 78, 59, 0.85), 0 8px 15px rgba(16, 185, 129, 0.25);
+            box-shadow: 0 6px 14px rgba(16, 185, 129, 0.25);
             border: 1px solid rgba(255, 255, 255, 0.25);
         }
-        .scramble-btn.letter:hover {
-            transform: translateY(-3px) scale(1.06);
-        }
-        .scramble-btn.letter:active {
-            transform: translateY(2px) scale(0.96);
-        }
-
-        .menu-btn {
-            white-space: normal !important;
-            word-wrap: break-word !important;
-            overflow-wrap: break-word !important;
-            hyphens: auto;
-            min-height: 94px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 0.45rem;
-            line-height: 1.15 !important;
-            padding: 0.65rem !important;
-            text-align: center;
-            font-size: clamp(0.76rem, 3vw, 1rem) !important;
-        }
+        .scramble-btn.letter:hover { transform: translateY(-2px) scale(1.05); }
     </style>
 </head>
 <body class="text-gray-200">
@@ -554,127 +530,155 @@
         <!-- Tela Inicial -->
         <div id="start-screen" class="screen">
             <div class="start-screen-scrollable">
-                <div class="text-center mb-5 relative flex-shrink-0 w-full flex justify-center mt-2">
-                    <button id="music-btn" class="absolute top-0 left-0 btn bg-slate-800/85 hover:bg-slate-700 rounded-full p-2.5 text-cyan-300 z-10" title="Música de fundo">
-                        <svg id="music-on-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256" class="hidden"><path d="M240,128a80.12,80.12,0,0,1-42.38,71.47,8,8,0,0,1-8.52-13c24.8-15.5,42.9-49.33,42.9-88.47a80,80,0,0,0-160,0c0,39.14,18.1,72.97,42.9,88.47a8,8,0,0,1-8.52,13A80.12,80.12,0,0,1,16,128a80,80,0,0,1,160.7,52.41a8,8,0,1,1-8.4,13.18A64.08,64.08,0,0,0,32,128a64,64,0,0,0,128,0,64.08,64.08,0,0,0-120.3-32.41,8,8,0,1,1-8.4-13.18A80,80,0,0,1,240,128Z"></path></svg>
-                        <svg id="music-off-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><path d="M245.48,133.47a8,8,0,0,1-8.52,13C212.16,130.93,184.31,112,144,112a8,8,0,0,1,0-16c44.87,0,77.41,22.21,102.9,40.65A8,8,0,0,1,245.48,133.47ZM192,112a8,8,0,0,0,0,16c21.3,0,38,7.5,45.48,13.69a8,8,0,0,0,11-11.38C238,121.2,216,112,192,112Zm-83.31-41L70.05,32.35A8,8,0,0,0,58.74,37.89l50.7,50.7a8,8,0,0,0,11.31,0l.25-.25L213.11,230.11a8,8,0,0,0,11.31-11.31ZM144,32a8,8,0,0,1,8,8v.69l-16,16V40a8,8,0,0,1-8-8,80.13,80.13,0,0,0-71.3-43.3A8,8,0,0,0,32,0H31.9a8,8,0,0,0-7.38,5.06,78.5,78.5,0,0,0-1.5,13.67A80,80,0,0,0,108.69,71Z"></path></svg>
+                <!-- Barra Superior HUD Glass -->
+                <div class="hud-topbar">
+                    <button id="music-btn" class="btn bg-slate-800/90 hover:bg-slate-700 rounded-xl px-3 py-2 text-cyan-300 text-xs sm:text-sm" title="Música de fundo">
+                        <svg id="music-on-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256" class="hidden"><path d="M240,128a80.12,80.12,0,0,1-42.38,71.47,8,8,0,0,1-8.52-13c24.8-15.5,42.9-49.33,42.9-88.47a80,80,0,0,0-160,0c0,39.14,18.1,72.97,42.9,88.47a8,8,0,0,1-8.52,13A80.12,80.12,0,0,1,16,128a80,80,0,0,1,160.7,52.41a8,8,0,1,1-8.4,13.18A64.08,64.08,0,0,0,32,128a64,64,0,0,0,128,0,64.08,64.08,0,0,0-120.3-32.41,8,8,0,1,1-8.4-13.18A80,80,0,0,1,240,128Z"></path></svg>
+                        <svg id="music-off-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256"><path d="M245.48,133.47a8,8,0,0,1-8.52,13C212.16,130.93,184.31,112,144,112a8,8,0,0,1,0-16c44.87,0,77.41,22.21,102.9,40.65A8,8,0,0,1,245.48,133.47ZM192,112a8,8,0,0,0,0,16c21.3,0,38,7.5,45.48,13.69a8,8,0,0,0,11-11.38C238,121.2,216,112,192,112Zm-83.31-41L70.05,32.35A8,8,0,0,0,58.74,37.89l50.7,50.7a8,8,0,0,0,11.31,0l.25-.25L213.11,230.11a8,8,0,0,0,11.31-11.31ZM144,32a8,8,0,0,1,8,8v.69l-16,16V40a8,8,0,0,1-8-8,80.13,80.13,0,0,0-71.3-43.3A8,8,0,0,0,32,0H31.9a8,8,0,0,0-7.38,5.06,78.5,78.5,0,0,0-1.5,13.67A80,80,0,0,0,108.69,71Z"></path></svg>
+                        <span class="hidden sm:inline">Áudio</span>
                     </button>
-                    <button id="help-btn" class="absolute top-0 right-0 btn bg-slate-800/85 hover:bg-slate-700 rounded-full p-2.5 text-cyan-300 z-10" title="Ajuda">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24a104,104,0,1,0,104,104A104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm-8-40a8,8,0,0,1-8-8V152a8,8,0,0,1,16,0v16A8,8,0,0,1,120,176Zm20-80a12,12,0,1,1-12-12A12,12,0,0,1,140,96Z"></path></svg>
+
+                    <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-400/30 text-[11px] font-cyber tracking-widest text-cyan-300 uppercase">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        PRO EDITION
+                    </div>
+
+                    <button id="help-btn" class="btn bg-slate-800/90 hover:bg-slate-700 rounded-xl px-3 py-2 text-cyan-300 text-xs sm:text-sm" title="Ajuda">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24a104,104,0,1,0,104,104A104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm-8-40a8,8,0,0,1-8-8V152a8,8,0,0,1,16,0v16A8,8,0,0,1,120,176Zm20-80a12,12,0,1,1-12-12A12,12,0,0,1,140,96Z"></path></svg>
+                        <span class="hidden sm:inline">Ajuda</span>
                     </button>
-                    <img src="https://i.imgur.com/PbOYu8p.png" alt="Logotipo do Jogo" class="logo-3d w-32 md:w-44 h-auto">
                 </div>
 
-                <h1 class="font-cyber text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-400 to-purple-400 text-center mb-1 tracking-wide">
-                    ENGLISH LEARNING GAME
-                </h1>
-                <p class="text-cyan-200/80 text-xs md:text-sm font-medium tracking-widest uppercase text-center mb-5">
-                    Domine o Inglês com Pronúncia Nativa e Desafios Interativos
-                </p>
+                <!-- Hero Logo & Título -->
+                <div class="text-center mb-4 flex-shrink-0 w-full flex flex-col items-center">
+                    <img src="https://i.imgur.com/PbOYu8p.png" alt="Logotipo do Jogo" class="logo-3d w-28 md:w-36 h-auto mb-3">
+                    <h1 class="font-cyber text-2xl sm:text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-300 to-purple-400 text-center mb-1.5 tracking-wide">
+                        ENGLISH LEARNING GAME
+                    </h1>
+                    <p class="text-slate-300/85 text-xs md:text-sm font-medium tracking-widest uppercase text-center max-w-xl">
+                        Domine o Inglês com Pronúncia Nativa e Desafios Interativos
+                    </p>
+                </div>
 
-                <!-- Input de Nickname e Botão de Ranking -->
-                <div class="mb-6 w-full max-w-xs mx-auto flex flex-col gap-2">
-                    <div id="nickname-input-group" class="flex flex-col gap-2">
-                        <div class="flex gap-2">
-                            <input type="text" id="player-nickname" placeholder="Digite seu Nickname" class="w-full bg-slate-900/85 text-white text-center text-base p-3 rounded-xl border border-cyan-500/40 focus:border-cyan-300 focus:outline-none transition-colors shadow-inner" maxlength="15">
-                            <button id="save-nickname-btn" class="btn bg-cyan-500 hover:bg-cyan-400 rounded-xl px-4 font-bold text-slate-950" title="Salvar Nickname"><i class="ph-bold ph-check text-xl"></i></button>
+                <!-- Barra de Perfil (Nickname) + Ranking Semanal -->
+                <div class="mb-5 w-full max-w-md mx-auto flex flex-col sm:flex-row gap-2.5 items-stretch">
+                    <div class="flex-1">
+                        <div id="nickname-input-group" class="flex gap-2 h-full">
+                            <input type="text" id="player-nickname" placeholder="Digite seu Nickname" class="w-full bg-slate-900/85 text-white text-center text-sm p-3 rounded-xl border border-cyan-500/35 focus:border-cyan-300 focus:outline-none transition-colors shadow-inner" maxlength="15">
+                            <button id="save-nickname-btn" class="btn bg-cyan-500 hover:bg-cyan-400 rounded-xl px-4 font-bold text-slate-950" title="Salvar Nickname"><i class="ph-bold ph-check text-lg"></i></button>
+                        </div>
+                        <div id="nickname-display-group" class="hidden bg-slate-900/85 border border-cyan-500/35 rounded-xl px-3.5 py-2.5 flex justify-between items-center h-full">
+                            <span class="text-white text-sm font-semibold flex items-center gap-2 truncate"><i class="ph-fill ph-user-circle text-cyan-400 text-xl"></i> Olá, <span id="display-nickname-text" class="text-cyan-300 truncate"></span></span>
+                            <button id="edit-nickname-btn" class="text-gray-400 hover:text-cyan-300 transition-colors ml-2" title="Editar Nickname"><i class="ph-bold ph-pencil-simple text-lg"></i></button>
                         </div>
                     </div>
-                    <div id="nickname-display-group" class="hidden bg-slate-900/85 border border-cyan-500/40 rounded-xl p-3 flex justify-between items-center">
-                        <span class="text-white font-semibold flex items-center gap-2"><i class="ph-fill ph-user text-cyan-400"></i> Olá, <span id="display-nickname-text" class="text-cyan-300"></span></span>
-                        <button id="edit-nickname-btn" class="text-gray-400 hover:text-cyan-300 transition-colors" title="Editar Nickname"><i class="ph-bold ph-pencil-simple text-lg"></i></button>
-                    </div>
 
-                    <button id="view-ranking-btn" class="btn bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 text-slate-950 mt-1">
-                        <i class="ph-bold ph-trophy text-xl"></i> Ver Ranking Semanal
+                    <button id="view-ranking-btn" class="btn bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-300 hover:to-orange-400 font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 text-slate-950 text-sm whitespace-nowrap">
+                        <i class="ph-fill ph-trophy text-lg"></i> Top 20 Semanal
                     </button>
                 </div>
 
                 <div class="start-screen-content-wrapper">
                     <div class="content-panel" id="main-start-panel">
                         <div id="difficulty-selection">
-                            <h3 class="font-cyber text-center font-bold mb-5 text-lg md:text-xl text-cyan-200 tracking-wider uppercase">Selecione o Nível</h3>
-                            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                                <button class="btn difficulty-btn text-white font-bold bg-gradient-to-br from-emerald-600 to-green-700 hover:from-emerald-500 hover:to-green-600" data-difficulty="easy" data-label="Iniciante" data-icon="ph-star">
-                                    <i class="ph-fill ph-star text-3xl text-emerald-200"></i>
-                                    <span>Iniciante</span>
+                            <div class="text-center mb-6">
+                                <span class="text-[11px] font-cyber tracking-widest uppercase text-cyan-400/80">Passo 1 de 2</span>
+                                <h3 class="font-cyber font-bold text-lg md:text-2xl text-white tracking-wider uppercase mt-0.5">Selecione o Nível</h3>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <button class="btn difficulty-btn text-white font-bold hover:border-emerald-400/70" data-difficulty="easy" data-label="Iniciante" data-icon="ph-star">
+                                    <div class="diff-icon-badge bg-emerald-500/20 border-emerald-400/40">
+                                        <i class="ph-fill ph-star text-3xl text-emerald-400"></i>
+                                    </div>
+                                    <span class="text-lg">Iniciante</span>
+                                    <span class="text-xs font-normal text-slate-400">Base & Vocabulário</span>
                                 </button>
-                                <button class="btn difficulty-btn text-slate-950 font-bold bg-gradient-to-br from-amber-400 to-yellow-500 hover:from-amber-300 hover:to-yellow-400" data-difficulty="medium" data-label="Intermediário" data-icon="ph-rocket">
-                                    <i class="ph-fill ph-rocket text-3xl text-slate-900"></i>
-                                    <span>Intermediário</span>
+                                <button class="btn difficulty-btn text-white font-bold hover:border-amber-400/70" data-difficulty="medium" data-label="Intermediário" data-icon="ph-rocket">
+                                    <div class="diff-icon-badge bg-amber-500/20 border-amber-400/40">
+                                        <i class="ph-fill ph-rocket text-3xl text-amber-400"></i>
+                                    </div>
+                                    <span class="text-lg">Intermediário</span>
+                                    <span class="text-xs font-normal text-slate-400">Verbos & Cotidiano</span>
                                 </button>
-                                <button class="btn difficulty-btn text-white font-bold bg-gradient-to-br from-rose-600 to-purple-700 hover:from-rose-500 hover:to-purple-600" data-difficulty="hard" data-label="Avançado" data-icon="ph-fire">
-                                    <i class="ph-fill ph-fire text-3xl text-rose-200"></i>
-                                    <span>Avançado</span>
+                                <button class="btn difficulty-btn text-white font-bold hover:border-rose-400/70" data-difficulty="hard" data-label="Avançado" data-icon="ph-fire">
+                                    <div class="diff-icon-badge bg-rose-500/20 border-rose-400/40">
+                                        <i class="ph-fill ph-fire text-3xl text-rose-400"></i>
+                                    </div>
+                                    <span class="text-lg">Avançado</span>
+                                    <span class="text-xs font-normal text-slate-400">Fluência & Desafios</span>
                                 </button>
                             </div>
                         </div>
 
-                        <!-- Menu de Jogos -->
+                        <!-- Menu de Jogos (Bento Grid Moderno) -->
                         <div id="game-mode-selection-container" class="hidden w-full">
-                            <div class="flex justify-between items-center mb-4">
-                                <h3 class="font-cyber font-bold text-base md:text-lg text-cyan-200 uppercase tracking-wider">Modo de Jogo</h3>
-                                <div id="change-level-quick-btn" class="bg-slate-800/85 px-3.5 py-1.5 rounded-full flex items-center gap-2 text-sm font-medium border border-cyan-500/35 cursor-pointer hover:bg-slate-700 transition-colors" title="Clique para alterar o nível">
+                            <div class="flex flex-wrap justify-between items-center gap-2 mb-5 pb-3 border-b border-slate-700/60">
+                                <div>
+                                    <span class="text-[10px] font-cyber tracking-widest uppercase text-cyan-400/80 block">Passo 2 de 2</span>
+                                    <h3 class="font-cyber font-bold text-base md:text-xl text-white uppercase tracking-wider">Escolha o Desafio</h3>
+                                </div>
+                                <div id="change-level-quick-btn" class="bg-slate-800/90 px-4 py-2 rounded-full flex items-center gap-2 text-xs sm:text-sm font-semibold border border-cyan-500/35 cursor-pointer hover:bg-slate-700 transition-colors" title="Clique para alterar o nível">
                                     <i id="level-icon-display" class="ph-fill ph-star text-cyan-400"></i>
                                     <span id="level-text-display" class="text-cyan-300">Iniciante</span>
+                                    <i class="ph-bold ph-caret-down text-slate-400 text-xs"></i>
                                 </div>
                             </div>
 
                             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 w-full">
-                                <button id="start-vocab-btn" class="btn menu-btn bg-gradient-to-br from-indigo-600 to-blue-700 w-full font-bold rounded-xl">
-                                    <i class="ph-bold ph-translate text-2xl sm:text-3xl"></i>
+                                <button id="start-vocab-btn" class="btn menu-btn font-bold rounded-2xl">
+                                    <div class="mode-icon-pill bg-gradient-to-br from-indigo-500 to-blue-600 text-white"><i class="ph-bold ph-translate text-2xl"></i></div>
                                     <span>Vocabulário</span>
                                 </button>
-                                <button id="start-listening-btn" class="btn menu-btn bg-gradient-to-br from-purple-600 to-fuchsia-700 w-full font-bold rounded-xl">
-                                    <i class="ph-bold ph-headphones text-2xl sm:text-3xl"></i>
+                                <button id="start-listening-btn" class="btn menu-btn font-bold rounded-2xl">
+                                    <div class="mode-icon-pill bg-gradient-to-br from-purple-500 to-fuchsia-600 text-white"><i class="ph-bold ph-headphones text-2xl"></i></div>
                                     <span>Audição</span>
                                 </button>
-                                <button id="start-phrases-btn" class="btn menu-btn bg-gradient-to-br from-teal-500 to-cyan-700 w-full font-bold rounded-xl">
-                                    <i class="ph-bold ph-chat-centered-text text-2xl sm:text-3xl"></i>
+                                <button id="start-phrases-btn" class="btn menu-btn font-bold rounded-2xl">
+                                    <div class="mode-icon-pill bg-gradient-to-br from-teal-400 to-cyan-600 text-slate-950"><i class="ph-bold ph-chat-centered-text text-2xl"></i></div>
                                     <span>Frases</span>
                                 </button>
-                                <button id="dictionary-btn" class="btn menu-btn bg-gradient-to-br from-sky-500 to-indigo-600 w-full font-bold rounded-xl">
-                                    <i class="ph-bold ph-book-bookmark text-2xl sm:text-3xl"></i>
+                                <button id="dictionary-btn" class="btn menu-btn font-bold rounded-2xl">
+                                    <div class="mode-icon-pill bg-gradient-to-br from-sky-400 to-indigo-500 text-white"><i class="ph-bold ph-book-bookmark text-2xl"></i></div>
                                     <span>Dicionário 3D</span>
                                 </button>
 
-                                <button id="start-crossword-btn" class="btn menu-btn font-bold rounded-xl bg-gradient-to-br from-orange-500 to-amber-600">
-                                    <i class="ph-bold ph-grid-four text-2xl sm:text-3xl"></i>
+                                <button id="start-crossword-btn" class="btn menu-btn font-bold rounded-2xl">
+                                    <div class="mode-icon-pill bg-gradient-to-br from-orange-400 to-amber-600 text-slate-950"><i class="ph-bold ph-grid-four text-2xl"></i></div>
                                     <span>Palavras Cruzadas</span>
                                 </button>
-                                <button id="start-wordsearch-btn" class="btn menu-btn font-bold rounded-xl bg-gradient-to-br from-pink-500 to-rose-600">
-                                    <i class="ph-bold ph-magnifying-glass text-2xl sm:text-3xl"></i>
+                                <button id="start-wordsearch-btn" class="btn menu-btn font-bold rounded-2xl">
+                                    <div class="mode-icon-pill bg-gradient-to-br from-pink-500 to-rose-600 text-white"><i class="ph-bold ph-magnifying-glass text-2xl"></i></div>
                                     <span>Caça-palavras</span>
                                 </button>
-                                <button id="start-hangman-btn" class="btn menu-btn font-bold rounded-xl bg-gradient-to-br from-slate-600 to-slate-800">
-                                    <i class="ph-bold ph-smiley-x-eyes text-2xl sm:text-3xl"></i>
+                                <button id="start-hangman-btn" class="btn menu-btn font-bold rounded-2xl">
+                                    <div class="mode-icon-pill bg-gradient-to-br from-slate-500 to-slate-700 text-white"><i class="ph-bold ph-smiley-x-eyes text-2xl"></i></div>
                                     <span>Forca</span>
                                 </button>
-                                <button id="start-memory-btn" class="btn menu-btn font-bold rounded-xl bg-gradient-to-br from-cyan-500 to-teal-600 text-slate-950">
-                                    <i class="ph-bold ph-brain text-2xl sm:text-3xl"></i>
+                                <button id="start-memory-btn" class="btn menu-btn font-bold rounded-2xl">
+                                    <div class="mode-icon-pill bg-gradient-to-br from-cyan-400 to-teal-500 text-slate-950"><i class="ph-bold ph-brain text-2xl"></i></div>
                                     <span>Memória 3D</span>
                                 </button>
 
-                                <button id="start-scramble-btn" class="btn menu-btn font-bold rounded-xl bg-gradient-to-br from-lime-500 to-emerald-600 text-slate-950">
-                                    <i class="ph-bold ph-shuffle text-2xl sm:text-3xl"></i>
+                                <button id="start-scramble-btn" class="btn menu-btn font-bold rounded-2xl">
+                                    <div class="mode-icon-pill bg-gradient-to-br from-lime-400 to-emerald-500 text-slate-950"><i class="ph-bold ph-shuffle text-2xl"></i></div>
                                     <span>Letras Embaralhadas</span>
                                 </button>
-                                <button id="start-tf-btn" class="btn menu-btn font-bold rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 text-slate-950">
-                                    <i class="ph-bold ph-check-square-offset text-2xl sm:text-3xl"></i>
+                                <button id="start-tf-btn" class="btn menu-btn font-bold rounded-2xl">
+                                    <div class="mode-icon-pill bg-gradient-to-br from-amber-400 to-orange-500 text-slate-950"><i class="ph-bold ph-check-square-offset text-2xl"></i></div>
                                     <span>Verdadeiro ou Falso</span>
                                 </button>
-                                <button id="start-fill-btn" class="btn menu-btn font-bold rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 text-slate-950">
-                                    <i class="ph-bold ph-pencil-simple-line text-2xl sm:text-3xl"></i>
+                                <button id="start-fill-btn" class="btn menu-btn font-bold rounded-2xl">
+                                    <div class="mode-icon-pill bg-gradient-to-br from-emerald-400 to-teal-600 text-slate-950"><i class="ph-bold ph-pencil-simple-line text-2xl"></i></div>
                                     <span>Complete a Frase</span>
                                 </button>
-                                <button id="start-reverse-btn" class="btn menu-btn font-bold rounded-xl bg-gradient-to-br from-rose-500 to-red-700">
-                                    <i class="ph-bold ph-arrows-left-right text-2xl sm:text-3xl"></i>
+                                <button id="start-reverse-btn" class="btn menu-btn font-bold rounded-2xl">
+                                    <div class="mode-icon-pill bg-gradient-to-br from-rose-500 to-red-600 text-white"><i class="ph-bold ph-arrows-left-right text-2xl"></i></div>
                                     <span>Modo Inverso</span>
                                 </button>
 
-                                <button id="back-to-difficulty-btn" class="btn btn-neutral w-full font-bold py-3 px-3 rounded-xl text-lg col-span-2 sm:col-span-3 lg:col-span-4 mt-2 flex flex-row items-center justify-center gap-2">
-                                    <i class="ph-bold ph-arrow-u-up-left text-xl sm:text-2xl"></i>
-                                    <span>Voltar</span>
+                                <button id="back-to-difficulty-btn" class="btn btn-neutral w-full font-bold py-3 px-4 rounded-2xl text-sm sm:text-base col-span-2 sm:col-span-3 lg:col-span-4 mt-2 flex flex-row items-center justify-center gap-2">
+                                    <i class="ph-bold ph-arrow-u-up-left text-lg"></i>
+                                    <span>Alterar Nível de Dificuldade</span>
                                 </button>
                             </div>
                         </div>
@@ -1013,6 +1017,33 @@
     <canvas id="share-canvas" class="hidden" width="1200" height="630"></canvas>
 
     <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+    import {
+        getFirestore,
+        collection,
+        doc,
+        getDoc,
+        setDoc,
+        getDocs,
+        query,
+        orderBy,
+        limit,
+        serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+
+    // Cole aqui as credenciais do seu app Web registradas no Firebase Console
+    const firebaseConfig = {
+        apiKey: "SUA_API_KEY",
+        authDomain: "SEU_PROJETO.firebaseapp.com",
+        projectId: "SEU_PROJETO_ID",
+        storageBucket: "SEU_PROJETO.appspot.com",
+        messagingSenderId: "SEU_SENDER_ID",
+        appId: "SEU_APP_ID"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
     const wordDatabase = {
         "Expressões Comuns": [{word:"Hello",pt:"Olá", sentence:"Hello, how are you?", pt_sentence:"Olá, como você está?"},{word:"Goodbye",pt:"Adeus", sentence:"Goodbye, see you tomorrow.", pt_sentence:"Adeus, até amanhã."},{word:"Thank you",pt:"Obrigado(a)", sentence:"Thank you for your help.", pt_sentence:"Obrigado(a) pela sua ajuda."},{word:"Please",pt:"Por favor", sentence:"Can you help me, please?", pt_sentence:"Você pode me ajudar, por favor?"},{word:"Sorry",pt:"Desculpe", sentence:"Sorry, I am late.", pt_sentence:"Desculpe, estou atrasado(a)."},{word:"Excuse me",pt:"Com licença", sentence:"Excuse me, where is the bathroom?", pt_sentence:"Com licença, onde é o banheiro?"},{word:"Good morning",pt:"Bom dia", sentence:"Good morning, everyone.", pt_sentence:"Bom dia a todos."},{word:"Good afternoon",pt:"Boa tarde", sentence:"Good afternoon, sir.", pt_sentence:"Boa tarde, senhor."},{word:"Good night",pt:"Boa noite", sentence:"Good night, sleep well.", pt_sentence:"Boa noite, durma bem."},{word:"How are you?",pt:"Como você está?", sentence:"Hi John, how are you?", pt_sentence:"Oi John, como você está?"},{word:"What is your name?",pt:"Qual é o seu nome?", sentence:"Hello, what is your name?", pt_sentence:"Olá, qual é o seu nome?"},{word:"I don't understand",pt:"Eu não entendo", sentence:"Sorry, I don't understand the question.", pt_sentence:"Desculpe, eu não entendo a pergunta."},{word:"You're welcome",pt:"De nada", sentence:"You're welcome, it was my pleasure.", pt_sentence:"De nada, foi um prazer."},{word:"Nice to meet you",pt:"Prazer em conhecê-lo(a)", sentence:"It was nice to meet you.", pt_sentence:"Foi um prazer conhecê-lo(a)."},{word:"Have a good day",pt:"Tenha um bom dia", sentence:"Have a good day at work.", pt_sentence:"Tenha um bom dia no trabalho."},{word:"See you later",pt:"Até mais tarde", sentence:"I have to go, see you later.", pt_sentence:"Eu tenho que ir, até mais tarde."},{word:"What's up?",pt:"E aí?", sentence:"Hey man, what's up?", pt_sentence:"E aí, cara?"},{word:"No problem",pt:"Sem problemas", sentence:"No problem, I can help.", pt_sentence:"Sem problemas, eu posso ajudar."},{word:"I have no idea",pt:"Não faço ideia", sentence:"I have no idea where she is.", pt_sentence:"Não faço ideia de onde ela está."}],
         "Família": [
@@ -1854,59 +1885,83 @@
             return `englishGameWeeklyRank_${now.getFullYear()}_W${String(weekNumber).padStart(2, '0')}`;
         },
 
-        saveScoreToRanking(score) {
-            const nicknameInput = this.getNickname() || 'Jogador';
+        async saveScoreToRanking(score) {
+            const nicknameInput = (this.getNickname() || 'Jogador').trim().slice(0, 15);
             const numericScore = Number(score);
             if (!numericScore || isNaN(numericScore) || numericScore <= 0) return;
 
             const weekKey = this.getCurrentWeekKey();
             const today = new Date();
             const dateString = `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth() + 1).padStart(2, '0')}/${today.getFullYear()}`;
+            const playerId = nicknameInput.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, "_") || "jogador";
 
             try {
-                const existing = JSON.parse(localStorage.getItem(weekKey) || '[]');
-                existing.push({
-                    nickname: nicknameInput,
-                    score: numericScore,
-                    date: dateString,
-                    timestamp: Date.now()
-                });
-                existing.sort((a, b) => b.score - a.score);
-                localStorage.setItem(weekKey, JSON.stringify(existing.slice(0, 20)));
+                const playerRef = doc(db, "rankings", weekKey, "scores", playerId);
+                const snap = await getDoc(playerRef);
+
+                // Atualiza apenas se não existir ou se a nova pontuação superar o recorde semanal do jogador
+                if (!snap.exists() || numericScore > (snap.data().score || 0)) {
+                    await setDoc(playerRef, {
+                        nickname: nicknameInput,
+                        score: numericScore,
+                        date: dateString,
+                        updatedAt: serverTimestamp()
+                    });
+                }
             } catch (error) {
-                console.error("Erro ao salvar no ranking semanal:", error);
+                console.error("Erro ao salvar no Firestore:", error);
             }
         },
 
-        loadWeeklyRanking() {
+        async loadWeeklyRanking() {
             const weekKey = this.getCurrentWeekKey();
-            this.elements.rankingList.innerHTML = '';
+            this.elements.rankingList.innerHTML = '<p class="text-center text-cyan-300 py-6 animate-pulse">Carregando Top 20 Semanal...</p>';
 
             try {
-                const records = JSON.parse(localStorage.getItem(weekKey) || '[]');
-                if (!records || records.length === 0) {
+                const scoresRef = collection(db, "rankings", weekKey, "scores");
+                const top20Query = query(scoresRef, orderBy("score", "desc"), limit(20));
+                const snapshot = await getDocs(top20Query);
+
+                this.elements.rankingList.innerHTML = '';
+
+                if (snapshot.empty) {
                     this.elements.rankingList.innerHTML = '<p class="text-center text-gray-400 mt-4">Nenhum recorde nesta semana. Seja o primeiro!</p>';
                     return;
                 }
 
-                records.forEach((data, idx) => {
-                    const rank = idx + 1;
+                let rank = 1;
+                snapshot.forEach((docSnap) => {
+                    const data = docSnap.data();
                     const item = document.createElement('div');
-                    const rankStyle = rank === 1 ? 'text-yellow-300 text-xl' : rank === 2 ? 'text-cyan-200 text-lg' : rank === 3 ? 'text-amber-500 text-lg' : 'text-gray-400';
 
-                    item.className = 'flex justify-between items-center bg-slate-800/75 border border-cyan-500/20 p-3 rounded-xl';
+                    const podiumBadge =
+                        rank === 1 ? '🥇' :
+                        rank === 2 ? '🥈' :
+                        rank === 3 ? '🥉' : `${rank}º`;
+
+                    const rowHighlight =
+                        rank === 1 ? 'bg-amber-500/15 border-amber-400/50' :
+                        rank === 2 ? 'bg-slate-400/15 border-slate-300/40' :
+                        rank === 3 ? 'bg-orange-500/15 border-orange-400/40' :
+                        'bg-slate-800/75 border-cyan-500/20';
+
+                    item.className = `flex justify-between items-center border ${rowHighlight} p-3 rounded-xl`;
                     item.innerHTML = `
-                        <div class="flex items-center gap-3">
-                            <span class="font-cyber font-bold ${rankStyle} w-7 text-center">${rank}º</span>
-                            <span class="font-semibold text-gray-100">${data.nickname}</span>
+                        <div class="flex items-center gap-3 min-w-0">
+                            <span class="font-cyber font-bold text-base w-8 text-center flex-shrink-0">${podiumBadge}</span>
+                            <div class="truncate">
+                                <span class="font-semibold text-gray-100 block truncate">${data.nickname}</span>
+                                <span class="text-[11px] text-gray-400">${data.date || ''}</span>
+                            </div>
                         </div>
-                        <span class="font-cyber font-bold text-cyan-300">${data.score} pts</span>
+                        <span class="font-cyber font-bold text-cyan-300 flex-shrink-0 ml-2">${data.score} pts</span>
                     `;
                     this.elements.rankingList.appendChild(item);
+                    rank++;
                 });
             } catch (error) {
-                console.error("Erro ao carregar o ranking:", error);
-                this.elements.rankingList.innerHTML = '<p class="text-center text-rose-400 mt-4">Não foi possível carregar o ranking local.</p>';
+                console.error("Erro ao carregar ranking do Firestore:", error);
+                this.elements.rankingList.innerHTML = '<p class="text-center text-rose-400 mt-4">Não foi possível conectar ao ranking online.</p>';
             }
         },
 
