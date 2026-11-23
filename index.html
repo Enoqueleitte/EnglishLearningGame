@@ -32,11 +32,11 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="English PRO">
-    <link rel="apple-touch-icon" href="https://i.imgur.com/PbOYu8p.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="https://i.imgur.com/PbOYu8p.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="https://i.imgur.com/PbOYu8p.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="https://i.imgur.com/PbOYu8p.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="https://i.imgur.com/PbOYu8p.png">
+    <link id="apple-icon-default" rel="apple-touch-icon" href="https://i.imgur.com/PbOYu8p.png">
+    <link id="apple-icon-152" rel="apple-touch-icon" sizes="152x152" href="https://i.imgur.com/PbOYu8p.png">
+    <link id="apple-icon-180" rel="apple-touch-icon" sizes="180x180" href="https://i.imgur.com/PbOYu8p.png">
+    <link id="favicon-192" rel="icon" type="image/png" sizes="192x192" href="https://i.imgur.com/PbOYu8p.png">
+    <link id="favicon-512" rel="icon" type="image/png" sizes="512x512" href="https://i.imgur.com/PbOYu8p.png">
     <link id="pwa-manifest" rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22English%20Learning%20Game%20PRO%22%2C%22short_name%22%3A%22English%20PRO%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23071026%22%2C%22theme_color%22%3A%22%23071026%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A%2F%2Fi.imgur.com%2FPbOYu8p.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -274,6 +274,10 @@
             animation: float-3d 4.8s ease-in-out infinite;
             filter: drop-shadow(0 0 24px var(--glow-color));
             transform-style: preserve-3d;
+        }
+        .logo-no-bg {
+            background: transparent !important;
+            border-radius: 0;
         }
 
         @media (max-width: 768px) {
@@ -564,7 +568,7 @@
 
                 <!-- Hero Logo & Título -->
                 <div class="text-center mb-4 flex-shrink-0 w-full flex flex-col items-center">
-                    <img src="https://i.imgur.com/PbOYu8p.png" alt="Logotipo do Jogo" class="logo-3d w-28 md:w-36 h-auto mb-3">
+                    <img id="hero-logo" src="https://i.imgur.com/PbOYu8p.png" alt="Logotipo do Jogo" class="logo-3d logo-no-bg w-28 md:w-36 h-auto mb-3">
                     <h1 class="font-cyber text-2xl sm:text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-300 to-purple-400 text-center mb-1.5 tracking-wide">
                         ENGLISH LEARNING GAME
                     </h1>
@@ -992,7 +996,7 @@
                 <i class="ph-bold ph-x text-lg"></i>
             </button>
 
-            <img src="https://i.imgur.com/PbOYu8p.png" alt="Logotipo do Jogo" class="logo-3d w-20 h-auto mx-auto mb-4">
+            <img id="donation-logo" src="https://i.imgur.com/PbOYu8p.png" alt="Logotipo do Jogo" class="logo-3d logo-no-bg w-20 h-auto mx-auto mb-4">
 
             <h2 class="font-cyber text-xl font-bold text-purple-300 mb-3">Apoie o Projeto!</h2>
 
@@ -1668,6 +1672,7 @@
             this.elements.totalWordsInfo.textContent = 'Fim da jornada.';
             this.state.currentScreen = this.elements.screens.start;
             this.showScreen('start');
+            this.prepareLogoAssets();
 
             const savedNickname = localStorage.getItem('englishGameNickname');
             if (savedNickname) {
@@ -2866,10 +2871,25 @@
 
                 const logo = new Image();
                 logo.crossOrigin = "Anonymous";
-                logo.src = 'https://i.imgur.com/PbOYu8p.png';
+                logo.src = this.state.logoWithBgUrl || 'https://i.imgur.com/PbOYu8p.png';
 
                 logo.onload = () => {
-                    ctx.drawImage(logo, width / 2 - 90, 45, 180, 180);
+                    const lx = width / 2 - 95;
+                    const ly = 42;
+                    const lSize = 190;
+                    const r = 36;
+
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.roundRect(lx, ly, lSize, lSize, r);
+                    ctx.fillStyle = '#071026';
+                    ctx.fill();
+                    ctx.lineWidth = 3;
+                    ctx.strokeStyle = 'rgba(34, 211, 238, 0.55)';
+                    ctx.stroke();
+                    ctx.clip();
+                    ctx.drawImage(logo, lx, ly, lSize, lSize);
+                    ctx.restore();
 
                     ctx.fillStyle = '#e2e8f0';
                     ctx.textAlign = 'center';
@@ -3415,7 +3435,7 @@
                 cardEl.innerHTML = `
                     <div class="memory-card-inner">
                         <div class="memory-card-face memory-card-front">
-                            <img src="https://i.imgur.com/PbOYu8p.png" alt="Logo" class="w-3/4 h-auto p-1">
+                            <img src="${this.state.logoNoBgUrl || 'https://i.imgur.com/PbOYu8p.png'}" alt="Logo" class="logo-no-bg w-3/4 h-auto p-1">
                         </div>
                         <div class="memory-card-face memory-card-back">${card.value}</div>
                     </div>
@@ -3615,6 +3635,123 @@
             const len = this.state.dictionaryState.currentCategory.length;
             this.state.dictionaryState.currentIndex = (this.state.dictionaryState.currentIndex + 1) % len;
             this.updateCardContent();
+        },
+
+        prepareLogoAssets() {
+            const sourceUrl = 'https://i.imgur.com/PbOYu8p.png';
+            const img = new Image();
+            img.crossOrigin = 'Anonymous';
+
+            img.onload = () => {
+                try {
+                    const w = img.naturalWidth || 512;
+                    const h = img.naturalHeight || 512;
+
+                    // 1) Versão SEM FUNDO para uso interno no sistema
+                    const noBgCanvas = document.createElement('canvas');
+                    noBgCanvas.width = w;
+                    noBgCanvas.height = h;
+                    const noBgCtx = noBgCanvas.getContext('2d');
+                    noBgCtx.drawImage(img, 0, 0, w, h);
+
+                    const imgData = noBgCtx.getImageData(0, 0, w, h);
+                    const data = imgData.data;
+
+                    // Detecta cor média dos cantos para remover fundo uniforme/claro sem apagar o interior
+                    const corners = [
+                        [0, 0],
+                        [w - 1, 0],
+                        [0, h - 1],
+                        [w - 1, h - 1]
+                    ];
+                    let bgR = 0, bgG = 0, bgB = 0;
+                    corners.forEach(([x, y]) => {
+                        const idx = (y * w + x) * 4;
+                        bgR += data[idx];
+                        bgG += data[idx + 1];
+                        bgB += data[idx + 2];
+                    });
+                    bgR /= 4; bgG /= 4; bgB /= 4;
+
+                    for (let i = 0; i < data.length; i += 4) {
+                        const r = data[i], g = data[i + 1], b = data[i + 2];
+                        const distToCorner = Math.hypot(r - bgR, g - bgG, b - bgB);
+                        const isNearWhite = r > 235 && g > 235 && b > 235;
+                        if (distToCorner < 38 || isNearWhite) {
+                            data[i + 3] = 0;
+                        }
+                    }
+                    noBgCtx.putImageData(imgData, 0, 0);
+                    const noBgDataUrl = noBgCanvas.toDataURL('image/png');
+                    this.state.logoNoBgUrl = noBgDataUrl;
+
+                    const heroLogo = document.getElementById('hero-logo');
+                    const donationLogo = document.getElementById('donation-logo');
+                    if (heroLogo) heroLogo.src = noBgDataUrl;
+                    if (donationLogo) donationLogo.src = noBgDataUrl;
+
+                    // 2) Versão COM FUNDO para salvar como atalho (PWA/ícone) e enviar
+                    const size = 512;
+                    const bgCanvas = document.createElement('canvas');
+                    bgCanvas.width = size;
+                    bgCanvas.height = size;
+                    const bgCtx = bgCanvas.getContext('2d');
+
+                    const grad = bgCtx.createLinearGradient(0, 0, size, size);
+                    grad.addColorStop(0, '#04091a');
+                    grad.addColorStop(0.55, '#071026');
+                    grad.addColorStop(1, '#120826');
+                    bgCtx.fillStyle = grad;
+                    bgCtx.fillRect(0, 0, size, size);
+
+                    const pad = Math.round(size * 0.12);
+                    const drawSize = size - pad * 2;
+                    bgCtx.drawImage(noBgCanvas, pad, pad, drawSize, drawSize);
+
+                    const withBgDataUrl = bgCanvas.toDataURL('image/png');
+                    this.state.logoWithBgUrl = withBgDataUrl;
+                    this.updateShortcutIcons(withBgDataUrl);
+                } catch (err) {
+                    // Se o servidor bloquear leitura de pixels por CORS, mantém a imagem original
+                    this.state.logoNoBgUrl = sourceUrl;
+                    this.state.logoWithBgUrl = sourceUrl;
+                }
+            };
+
+            img.onerror = () => {
+                this.state.logoNoBgUrl = sourceUrl;
+                this.state.logoWithBgUrl = sourceUrl;
+            };
+
+            img.src = sourceUrl;
+        },
+
+        updateShortcutIcons(iconDataUrl) {
+            ['apple-icon-default', 'apple-icon-152', 'apple-icon-180', 'favicon-192', 'favicon-512'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.href = iconDataUrl;
+            });
+
+            const manifestLink = document.getElementById('pwa-manifest');
+            if (manifestLink) {
+                const manifest = {
+                    name: 'English Learning Game PRO',
+                    short_name: 'English PRO',
+                    start_url: '.',
+                    display: 'standalone',
+                    background_color: '#071026',
+                    theme_color: '#071026',
+                    icons: [
+                        {
+                            src: iconDataUrl,
+                            sizes: '512x512',
+                            type: 'image/png',
+                            purpose: 'any maskable'
+                        }
+                    ]
+                };
+                manifestLink.href = 'data:application/manifest+json,' + encodeURIComponent(JSON.stringify(manifest));
+            }
         }
     };
 
